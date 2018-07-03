@@ -10,7 +10,7 @@ The code samples for *Learning GraphQL* by Eve Porcello and Alex Banks, publishe
 
 * __Chapter 1__ : [Welcome To GraphQL](https://github.com/MoonHighway/learning-graphql/tree/master/chapter-01)
 * __Chapter 2__ : [Graph Theory](https://github.com/MoonHighway/learning-graphql/tree/master/chapter-02)
-* __Chapter 3__ : [The GraphQL Language](https://github.com/MoonHighway/learning-graphql/tree/master/chapter-013
+* __Chapter 3__ : [The GraphQL Language](https://github.com/MoonHighway/learning-graphql/tree/master/chapter-03)
 * __Chapter 4__ : [Designing a Schema](https://github.com/MoonHighway/learning-graphql/tree/master/chapter-04)
 * __Chapter 5__ : [Creating a GraphQL API](https://github.com/MoonHighway/learning-graphql/tree/master/chapter-05)
 * __Chapter 6__ : [GraphQL Clients](https://github.com/MoonHighway/learning-graphql/tree/master/chapter-06)
