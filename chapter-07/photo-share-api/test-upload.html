@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test Photo GraphQL Upload</title>
+    </head>
+    <body>
+        <input id="token" type="text" placeholder="user token..." required />
+        <input id="photo-to-post" type="file" accept="image/jpeg" onchange="postPhoto()"/>
+        <script>
+
+            var token = localStorage.getItem('token')
+            var tokenText = document.getElementById('token')
+            var photoFileField = document.getElementById('photo-to-post')
+            
+            if (token) {
+                tokenText.value = token
+            }
+
+            function postPhoto() {
+
+                token = tokenText.value
+                localStorage.setItem('token', token)
+
+                var url = 'http://localhost:4000/graphql'
+                let operation = {
+                    query: `mutation postPhoto($input:PostPhotoInput!) {
+                        postPhoto(input:$input) { url }
+                    }`,
+                    variables: {
+                        input: {
+                            name: 'test photo',
+                            category: 'ACTION',
+                            file: null
+                        }
+                    }
+                }
+                let map = {
+                    '0': ['variables.input.file']
+                }
+
+                let body = new FormData()
+                body.append('operations', JSON.stringify(operation))
+                body.append('map', JSON.stringify(map))
+                body.append(0, photoFileField.files[0])
+                
+                var opts = {
+                    method: 'POST',
+                    body,
+                    headers: {
+                        "Authorization": `bearer ${token}`
+                    }
+                }
+
+                fetch(url, opts)
+                    .then(res => res.json())
+                    .then(({data}) => data.postPhoto.url)
+                    .then(url => {
+                        var img = document.createElement('img')
+                        img.style.display = 'block'
+                        img.width = 350
+                        img.src = url
+                        img.alt = name
+                        document.body.appendChild(img)
+                    })
+                    .catch(console.error)
+
+                console.log('posting photo')
+            }
+        </script>
+    </body>
+</html>
