@@ -12,6 +12,7 @@ let db
 async function start() {
   const app = express()
   const MONGO_DB = process.env.DB_HOST
+  let db
 
   try {
     const client = await MongoClient.connect(MONGO_DB, { useNewUrlParser: true })
