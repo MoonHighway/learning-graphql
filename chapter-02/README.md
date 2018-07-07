@@ -1,4 +1,4 @@
-Graph Theory
+Chapter 2 - Graph Theory
 ==================
 Graph theory is the study of graphs, which are a way to formally represent a collection of interconnected objects. You can think of a graph as an object containing data points and their connections. In computer science, graphs typically describe networks of data.
 

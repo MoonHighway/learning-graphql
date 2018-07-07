@@ -1,4 +1,4 @@
-Designing a Schema
+Chapter 4 - Designing a Schema
 ==================
 The blueprint for a GraphQL API is the schema. In this chapter, learn more about GraphQL's schema definition language.
 

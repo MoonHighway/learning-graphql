@@ -1,4 +1,4 @@
-Welcome To GraphQL
+Chapter 1 - Welcome To GraphQL
 ==================
 GraphQL is a query language for your APIs and a runtime for fulfilling those queries with your data.
 

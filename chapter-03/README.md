@@ -1,4 +1,4 @@
-The GraphQL Language
+Chapter 3 - The GraphQL Language
 ==================
 GraphQL is standardized according to its spec. The following links share more detail about working with the GraphQL query language.
 

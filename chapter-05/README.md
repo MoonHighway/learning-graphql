@@ -1,2 +1,2 @@
-Creating a GraphQL API
+Chapter 5 - Creating a GraphQL API
 ==================
