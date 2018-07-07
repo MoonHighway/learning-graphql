@@ -13,6 +13,6 @@ Resource Links
 * [Apollo Launchpad](https://launchpad.graphql.com/new): Apollo's GraphQL Server demo platform
 
 ### Chapter Examples
-* [Snowtooth API](http://snowtooth.herokuapp.com): The Snowtooth Mountain GraphQL API
+* [Snowtooth API](http://snowtooth.moonhighway.com): The Snowtooth Mountain GraphQL API
 * [Union Types](https://launchpad.graphql.com/r94qxj5q4n): Union types sample on Apollo GraphQL's Launchpad
 * [Interfaces](https://launchpad.graphql.com/j8r375km3p): Interfaces sample on Launchpad
