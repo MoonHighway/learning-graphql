@@ -17,5 +17,5 @@ Resource Links
 
 ### GraphQL Clients
 * [Relay](https://facebook.github.io/relay/): Facebook's GraphQL client library
-* [Apollo Client](): The GraphQL client developed by Meteor Development Group
+* [Apollo Client](https://www.apollographql.com/docs/react/): The GraphQL client developed by Meteor Development Group
 * [urql](https://github.com/FormidableLabs/urql): Formidable Labs's minimal React Query Library  
