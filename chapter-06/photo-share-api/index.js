@@ -36,8 +36,7 @@ async function start() {
       const githubToken = token.replace('bearer ', '')
       const currentUser = await db.collection('users').findOne({ githubToken })
       return { db, currentUser }
-    },
-    playground: '/playground'
+    }
   })
 
   server.applyMiddleware({ app })
