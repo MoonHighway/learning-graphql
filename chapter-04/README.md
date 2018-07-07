@@ -9,7 +9,7 @@ Resource Links
 * [Schema Language Cheat Sheet](https://github.com/sogko/graphql-schema-language-cheat-sheet): An overview of the main features in GraphQL schemas. Hang this at your desk! 
 
 ### Chapter Examples
-* [City to City Through Types - Launchpad](https://launchpad.graphql.com/lk3qk3zq7q)
-* [Union Types - Launchpad](https://launchpad.graphql.com/r94qxj5q4n)
-* [Interfaces - Launchpad](https://launchpad.graphql.com/j8r375km3p)
+* [City to City Through Types - Launchpad](https://launchpad.graphql.com/lk3qk3zq7q): Through types sample on Apollo GraphQL's Launchpad
+* [Union Types - Launchpad](https://launchpad.graphql.com/r94qxj5q4n): Union types sample on Launchpad
+* [Interfaces - Launchpad](https://launchpad.graphql.com/j8r375km3p): Interfaces sample on Launchpad
 

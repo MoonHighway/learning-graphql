@@ -11,7 +11,6 @@ Resource Links
 * [GraphQL Bin](https://www.graphqlbin.com/v2/new): An online version of GraphQL Playground. Simply enter a GraphQL endpoint, and all of the schema documentation will be present in the `schema` tab. 
 * [GraphQL Bin - SWAPI](https://www.graphqlbin.com/RVIn): This link takes you to a SWAPI example in GraphQL Bin.
 * [Apollo Launchpad](https://launchpad.graphql.com/new): Apollo's GraphQL Server demo platform
-* [Public GraphQL APIs](https://graphql.org/community): A list of public APIs that you can send queries to
 
 ### Chapter Examples
 * [Snowtooth API](http://snowtooth.herokuapp.com): The Snowtooth Mountain GraphQL API
