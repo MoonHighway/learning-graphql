@@ -1,2 +1,2 @@
-GraphQL Clients
+Chapter 6 - GraphQL Clients
 ==================
