@@ -1,6 +1,6 @@
 Chapter 5 - Creating a GraphQL API
 ==================
-In this chapter, we'll incorporate Apollo Server to build a full-featured GraphQL service for sharing photos.
+We've explored the history. We've written some queries. We've created a schema. Now you're ready to create a fully functioning GraphQL service. In this chapter, we'll use Apollo Server 2.0, an open source solution from Meteor Development Group, to stand up a GraphQL server for the PhotoShare project. Along the way, we'll solidify a schema, write resolvers, incorporate a database, and add GitHub authorization to the project.
 
 Resource Links
 ----
