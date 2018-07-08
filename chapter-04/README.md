@@ -1,6 +1,6 @@
 Chapter 4 - Designing a Schema
 ==================
-The blueprint for a GraphQL API is the schema. In this chapter, learn more about GraphQL's schema definition language.
+GraphQL changes the way that applications are designed.  Instead of looking at your APIs as a collection of REST endpoints, you are going to start to look at your APIs as a collection of types. The blueprint for a GraphQL API is the schema. In this chapter, we'll learn more about GraphQL's type system and schema definition language. 
 
 Resource Links
 ------

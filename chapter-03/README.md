@@ -1,6 +1,6 @@
 Chapter 3 - The GraphQL Language
 ==================
-GraphQL is standardized according to its spec. The following links share more detail about working with the GraphQL query language.
+In this chapter, we'll start writing GraphQL queries using the GraphQL query language. The query string syntax is consistent for all GraphQL APIs, regardless of what language the service is written in. Throughout this chapter, we'll explore the ins-and-outs of the query language and how a GraphQL operation is parsed by a GraphQL server.
 
 Resource Links
 ----

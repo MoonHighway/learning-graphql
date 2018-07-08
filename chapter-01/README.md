@@ -1,6 +1,6 @@
 Chapter 1 - Welcome To GraphQL
 ==================
-GraphQL is a query language for your APIs and a runtime for fulfilling those queries with your data.
+GraphQL is a query language for your APIs and a runtime for fulfilling those queries with your data. The GraphQL service is transport agnostic but is typically served over HTTP. Throughout this chapter, we'll introduce GraphQL: its history, its spec, and its architectural differences from other API paradigms like REST and SOAP.
 
 Resource Links
 ------

@@ -7,6 +7,7 @@ const resolvers = require('./resolvers')
 
 require('dotenv').config()
 var typeDefs = readFileSync('./typeDefs.graphql', 'UTF-8')
+let db
 
 async function start() {
   const app = express()
@@ -14,7 +15,7 @@ async function start() {
 
   try {
     const client = await MongoClient.connect(MONGO_DB, { useNewUrlParser: true })
-    const db = client.db()
+    db = client.db()
   } catch (error) {
     console.log(`
     
@@ -26,7 +27,7 @@ async function start() {
     `)
     process.exit(1)
   }
-  
+
   const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -35,8 +36,7 @@ async function start() {
       const githubToken = token.replace('bearer ', '')
       const currentUser = await db.collection('users').findOne({ githubToken })
       return { db, currentUser }
-    },
-    playground: '/playground'
+    }
   })
 
   server.applyMiddleware({ app })
