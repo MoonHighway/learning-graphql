@@ -25,7 +25,7 @@ const Users = () =>
 
 const updateUserCache = (cache, { data:{ addFakeUsers } }) => {
     let data = cache.readQuery({ query: ROOT_QUERY })
-    data.totalUsers += 1
+    data.totalUsers += addFakeUsers.length
     data.allUsers = [
         ...data.allUsers,
         ...addFakeUsers
