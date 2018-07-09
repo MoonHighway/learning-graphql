@@ -1,4 +1,5 @@
 const express = require('express')
+const { createServer } = require('http')
 const { ApolloServer, PubSub } = require('apollo-server-express')
 const { MongoClient } = require('mongodb')
 const { readFileSync } = require('fs')
@@ -32,9 +33,8 @@ async function start() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: async ({ req }) => {
-      const token = req.headers.authorization || ''
-      const githubToken = token.replace('bearer ', '')
+    context: async ({ req, connection }) => {
+      const githubToken = req ? req.headers.authorization : connection.context.Authorization
       const currentUser = await db.collection('users').findOne({ githubToken })
       return { db, currentUser, pubsub }
     }
@@ -49,7 +49,10 @@ async function start() {
     res.end(`<a href="${url}">Sign In with Github</a>`)
   })
 
-  app.listen({ port: 4000 }, () =>
+  const httpServer = createServer(app)
+  server.installSubscriptionHandlers(httpServer)
+
+  httpServer.listen({ port: 4000 }, () =>
     console.log(`GraphQL Server running at http://localhost:4000${server.graphqlPath}`)
   )
 }
