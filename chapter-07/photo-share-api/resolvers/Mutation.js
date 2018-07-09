@@ -4,7 +4,7 @@ const { ObjectID } = require('mongodb')
 
 module.exports = {
 
-    async postPhoto(root, args, { db, currentUser }) {
+    async postPhoto(root, args, { db, currentUser, pubsub }) {
 
       if (!currentUser) {
         throw new Error('only an authorized user can post a photo')
@@ -18,6 +18,8 @@ module.exports = {
 
       const { insertedIds } = await db.collection('photos').insert(newPhoto)
       newPhoto.id = insertedIds[0]
+
+      pubsub.publish('photo-added', { newPhoto })
 
       return newPhoto
       

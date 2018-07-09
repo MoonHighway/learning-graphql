@@ -1,5 +1,5 @@
 const express = require('express')
-const { ApolloServer } = require('apollo-server-express')
+const { ApolloServer, PubSub } = require('apollo-server-express')
 const { MongoClient } = require('mongodb')
 const { readFileSync } = require('fs')
 const expressPlayground = require('graphql-playground-middleware-express').default
@@ -11,6 +11,7 @@ var typeDefs = readFileSync('./typeDefs.graphql', 'UTF-8')
 async function start() {
   const app = express()
   const MONGO_DB = process.env.DB_HOST
+  const pubsub = new PubSub()
   let db
 
   try {
@@ -35,7 +36,7 @@ async function start() {
       const token = req.headers.authorization || ''
       const githubToken = token.replace('bearer ', '')
       const currentUser = await db.collection('users').findOne({ githubToken })
-      return { db, currentUser }
+      return { db, currentUser, pubsub }
     }
   })
 
