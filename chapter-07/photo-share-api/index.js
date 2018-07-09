@@ -11,10 +11,11 @@ var typeDefs = readFileSync('./typeDefs.graphql', 'UTF-8')
 async function start() {
   const app = express()
   const MONGO_DB = process.env.DB_HOST
+  let db
 
   try {
     const client = await MongoClient.connect(MONGO_DB, { useNewUrlParser: true })
-    const db = client.db()
+    db = client.db()
   } catch (error) {
     console.log(`
     
@@ -35,8 +36,7 @@ async function start() {
       const githubToken = token.replace('bearer ', '')
       const currentUser = await db.collection('users').findOne({ githubToken })
       return { db, currentUser }
-    },
-    playground: '/playground'
+    }
   })
 
   server.applyMiddleware({ app })
