@@ -7,7 +7,6 @@ const resolvers = require('./resolvers')
 
 require('dotenv').config()
 var typeDefs = readFileSync('./typeDefs.graphql', 'UTF-8')
-let db
 
 async function start() {
   const app = express()
@@ -28,7 +27,7 @@ async function start() {
     `)
     process.exit(1)
   }
-
+  
   const server = new ApolloServer({
     typeDefs,
     resolvers,

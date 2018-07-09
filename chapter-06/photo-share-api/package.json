@@ -1,14 +1,15 @@
 {
-  "name": "photo-share-api",
+  "name": "chapter-5-rebuild",
   "version": "0.0.0",
-  "description": "An application for sharing photos",
+  "description": "chapter 5 rebuild",
   "main": "index.js",
-  "author": "Moon Highway <info@moonhighway.com>",
+  "author": "Moon Highway",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon -e js,json,graphql"
+    "start": "nodemon ."
   },
   "dependencies": {
+    "apollo-server": "^2.0.0-rc.6",
     "apollo-server-express": "^2.0.0-rc.6",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
