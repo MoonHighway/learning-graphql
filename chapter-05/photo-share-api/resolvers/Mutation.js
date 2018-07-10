@@ -58,12 +58,12 @@ module.exports = {
       avatar: avatar_url
     }
 
-    const user = await db
+    const { ops:[user] } = await db
       .collection('users')
       .replaceOne({ githubLogin: login }, latestUserInfo, { upsert: true })
-      .then(({ ops }) => ops[0])
 
     return { user, token: access_token }
+  
   },
 
   addFakeUsers: async (parent, { count }, { db }) => {
