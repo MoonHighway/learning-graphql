@@ -4,7 +4,7 @@ const { ObjectID } = require('mongodb')
 
 module.exports = {
 
-    async postPhoto(root, args, { db, currentUser }) {
+    async postPhoto(root, args, { db, currentUser, pubsub }) {
 
       if (!currentUser) {
         throw new Error('only an authorized user can post a photo')
@@ -18,6 +18,8 @@ module.exports = {
 
       const { insertedIds } = await db.collection('photos').insert(newPhoto)
       newPhoto.id = insertedIds[0]
+
+      pubsub.publish('photo-added', { newPhoto })
 
       return newPhoto
       
@@ -33,7 +35,7 @@ module.exports = {
   
     },
 
-    async githubAuth(parent, { code }, { db }) {
+    async githubAuth(parent, { code }, { db, pubsub }) {
 
       let {
         message,
@@ -58,15 +60,16 @@ module.exports = {
         avatar: avatar_url
       }
 
-      const user = await db
+      const { ops:[user], result } = await db
         .collection('users')
         .replaceOne({ githubLogin: login }, latestUserInfo, { upsert: true })
-        .then(({ ops }) => ops[0])
+
+      result.upserted && pubsub.publish('user-added', { newUser: user })
 
       return { user, token: access_token }
     },
 
-    addFakeUsers: async (root, { count }, { db }) => {
+    addFakeUsers: async (root, { count }, { db, pubsub }) => {
       var randomUserApi = `https://randomuser.me/api/?results=${count}`
 
       var { results } = await fetch(randomUserApi).then(res => res.json())
@@ -79,7 +82,14 @@ module.exports = {
       }))
 
       await db.collection('users').insert(users)
-
+      var newUsers = await db.collection('users')
+        .find()
+        .sort({ _id: -1 })
+        .limit(count)
+        .toArray()
+        
+      newUsers.forEach(newUser => pubsub.publish('user-added', {newUser}))
+      
       return users
     },
 

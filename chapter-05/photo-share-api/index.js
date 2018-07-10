@@ -7,7 +7,6 @@ const resolvers = require('./resolvers')
 
 require('dotenv').config()
 var typeDefs = readFileSync('./typeDefs.graphql', 'UTF-8')
-let db
 
 async function start() {
   const app = express()
@@ -33,8 +32,7 @@ async function start() {
     typeDefs,
     resolvers,
     context: async ({ req }) => {
-      const token = req.headers.authorization || ''
-      const githubToken = token.replace('bearer ', '')
+      const githubToken = req.headers.authorization
       const currentUser = await db.collection('users').findOne({ githubToken })
       return { db, currentUser }
     }
