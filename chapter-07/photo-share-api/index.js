@@ -5,6 +5,7 @@ const { MongoClient } = require('mongodb')
 const { readFileSync } = require('fs')
 const expressPlayground = require('graphql-playground-middleware-express').default
 const resolvers = require('./resolvers')
+const path = require('path')
 
 require('dotenv').config()
 var typeDefs = readFileSync('./typeDefs.graphql', 'UTF-8')
@@ -48,6 +49,11 @@ async function start() {
     let url = `https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}&scope=user`
     res.end(`<a href="${url}">Sign In with Github</a>`)
   })
+
+  app.use(
+    '/img/photos', 
+    express.static(path.join(__dirname, 'assets', 'photos'))
+  )
 
   const httpServer = createServer(app)
   server.installSubscriptionHandlers(httpServer)

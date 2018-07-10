@@ -1,6 +1,8 @@
 const { authorizeWithGithub } = require('../lib')
 const fetch = require('node-fetch')
 const { ObjectID } = require('mongodb')
+const { uploadFile } = require('../lib')
+const path = require('path')
 
 module.exports = {
 
@@ -18,6 +20,10 @@ module.exports = {
 
       const { insertedIds } = await db.collection('photos').insert(newPhoto)
       newPhoto.id = insertedIds[0]
+
+      var toPath = path.join(__dirname, '..', 'assets', 'photos', `${newPhoto.id}.jpg`)
+
+      await uploadFile(args.input.file, toPath)
 
       pubsub.publish('photo-added', { newPhoto })
 
