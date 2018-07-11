@@ -12,6 +12,8 @@ package-lock.json
 
 .DS_Store
 
+*.jpg
+
 # Runtime data
 pids
 *.pid
