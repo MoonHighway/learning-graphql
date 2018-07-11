@@ -14,7 +14,7 @@ The following samples are in [CodeSandbox](https://codesandbox.io). You will fin
 
 PhotoShare App
 -----
-This folder contains the server and the client for Chapter 6. Run the server then either run the client project((https://github.com/MoonHighway/learning-graphql/tree/master/chapter-06/photo-share-client)) or view it on [CodeSandbox](https://codesandbox.io/s/github/MoonHighway/learning-graphql/tree/master/chapter-06/photo-share-client).
+This folder contains the server and the client for Chapter 6. Run the server then either run the [client project](https://github.com/MoonHighway/learning-graphql/tree/master/chapter-06/photo-share-client) or view it on [CodeSandbox](https://codesandbox.io/s/github/MoonHighway/learning-graphql/tree/master/chapter-06/photo-share-client).
 
 Be sure to add your GitHub CLIENT_ID to the `.env` file:
 
