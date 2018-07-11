@@ -10,10 +10,10 @@ const GITHUB_AUTH_MUTATION = gql`
     }
 `
 
-const CurrentUser = ({ name, avatar, logout }) => 
+const CurrentUser = ({ name, avatar, logout }) =>
     <div>
         <img src={avatar} width={48} height={48} alt="" />
-        <h1>{name}</h1> 
+        <h1>{name}</h1>
         <button onClick={logout}>logout</button>
     </div>
 
@@ -23,12 +23,12 @@ const Me = ({ logout, requestCode, signingIn }) =>
             <CurrentUser {...data.me} logout={logout} /> :
             loading ?
                 <p>loading... </p> :
-                <button onClick={requestCode} 
+                <button onClick={requestCode}
                     disabled={signingIn}>
                     Sign In with Github
-                </button> 
+                </button>
         }
-    </Query> 
+    </Query>
 
 class AuthorizedUser extends Component {
 
@@ -44,7 +44,7 @@ class AuthorizedUser extends Component {
         if (window.location.search.match(/code=/)) {
             this.setState({ signingIn: true })
             const code = window.location.search.replace("?code=", "")
-            this.githubAuthMutation({ variables: {code} })
+            this.githubAuthMutation({ variables: { code } })
         }
     }
 
@@ -56,13 +56,13 @@ class AuthorizedUser extends Component {
     }
 
     requestCode() {
-        var clientID = 'deba4977ddbd7ceee828'
+        var clientID = process.env.REACT_APP_CLIENT_ID
         window.location = `https://github.com/login/oauth/authorize?client_id=${clientID}&scope=user`
     }
 
     render() {
         return (
-            <Mutation mutation={GITHUB_AUTH_MUTATION} 
+            <Mutation mutation={GITHUB_AUTH_MUTATION}
                 update={this.authorizationComplete}
                 refetchQueries={[{ query: ROOT_QUERY }]}>
                 {mutation => {
@@ -74,9 +74,9 @@ class AuthorizedUser extends Component {
                     )
                 }}
             </Mutation>
-            
+
         )
     }
-}    
+}
 
 export default compose(withApollo, withRouter)(AuthorizedUser)   
