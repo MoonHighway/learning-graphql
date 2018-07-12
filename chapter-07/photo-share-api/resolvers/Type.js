@@ -33,7 +33,7 @@ module.exports = {
 
         postedPhotos: (parent, args, { db }) => 
             db.collection("photos")
-                .find({ userID: parent._id })
+                .find({ userID: parent.githubLogin })
                 .toArray(),
 
         inPhotos: async (parent, args, { db }) => {           

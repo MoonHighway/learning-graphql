@@ -6,6 +6,8 @@ const { readFileSync } = require('fs')
 const expressPlayground = require('graphql-playground-middleware-express').default
 const resolvers = require('./resolvers')
 const path = require('path')
+const depthLimit = require('graphql-depth-limit')
+const { createComplexityLimitRule } = require('graphql-validation-complexity')
 
 require('dotenv').config()
 var typeDefs = readFileSync('./typeDefs.graphql', 'UTF-8')
@@ -34,6 +36,13 @@ async function start() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    engine: true,
+    validationRules: [
+      depthLimit(5),
+      createComplexityLimitRule(1000, {
+          onCost: cost => console.log('query cost: ', cost)
+      })
+    ],
     context: async ({ req, connection }) => {
       const githubToken = req ? req.headers.authorization : connection.context.Authorization
       const currentUser = await db.collection('users').findOne({ githubToken })
@@ -57,6 +66,7 @@ async function start() {
 
   const httpServer = createServer(app)
   server.installSubscriptionHandlers(httpServer)
+  httpServer.timeout = 5000
 
   httpServer.listen({ port: 4000 }, () =>
     console.log(`GraphQL Server running at http://localhost:4000${server.graphqlPath}`)
