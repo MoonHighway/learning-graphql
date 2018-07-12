@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { Query, Mutation, withApollo, compose } from 'react-apollo'
 import { ROOT_QUERY } from './App'
 import { gql } from 'apollo-boost'
+import { NavLink } from 'react-router-dom'
 
 const GITHUB_AUTH_MUTATION = gql`
     mutation githubAuth($code:String!) {
@@ -15,6 +16,7 @@ const CurrentUser = ({ name, avatar, logout }) =>
         <img src={avatar} width={48} height={48} alt="" />
         <h1>{name}</h1> 
         <button onClick={logout}>logout</button>
+        <NavLink to="/newPhoto">Post Photo</NavLink>
     </div>
 
 const Me = ({ logout, requestCode, signingIn }) =>
