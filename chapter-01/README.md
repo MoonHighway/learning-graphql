@@ -17,6 +17,6 @@ Resource Links
 * [Public GraphQL APIs](https://graphql.org/community): A list of public APIs that can be queried with GraphQL
 
 ### GraphQL Clients
-* [Relay](https://facebook.github.io/relay/): Facebook's GraphQL client library
 * [Apollo Client](https://www.apollographql.com/docs/react/): The GraphQL client developed by Meteor Development Group
+* [Relay](https://facebook.github.io/relay/): Facebook's GraphQL client library
 * [urql](https://github.com/FormidableLabs/urql): Formidable Labs's minimal React Query Library  
