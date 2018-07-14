@@ -10,8 +10,10 @@ Then, start this service by running `yarn start` or `npm start`. Once started th
 
 ```graphql
 query {
-    totalUsers
     totalPhotos
+    allPhotos {
+        name
+    }
 }
 ```
 All of the data for the available queries will be supplied by mocks.
