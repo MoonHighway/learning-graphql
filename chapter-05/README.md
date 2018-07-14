@@ -22,8 +22,9 @@ PhotoShare API
 ----
 To run these files, simply:
 
-1. Run `npm install` on this folder.
-2. Replace the values of the `.env` file with your unique variables. 
+1. Go to the [photo-share-api](https://github.com/eveporcello/photo-share-api-ch05) folder.
+2. Run `npm install` on this folder.
+3. Replace the values of the `.env` file with your unique variables. 
 
 ```
 DB_HOST=<YOUR_MONGODB_HOST>
