@@ -14,3 +14,6 @@ Resource Links
 * [Mongo Installation for PC](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
 * [mLab](https://mlab.com/)
 * [Local Instructions for Mongo & mLab](https://gist.github.com/eveporcello/98f9e37a65f05b9d0866137d80ed9653)
+
+### GitHub Authorization
+* [GitHub](https://github.com)
