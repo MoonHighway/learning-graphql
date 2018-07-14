@@ -37,4 +37,4 @@ Want to see the project running on Glitch instead?
 
 [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!#!/remix/photo-share-api-ch05)
 
-Note: You'll still need to replace the values of the `.env` file with your unique variables, as shown in step 2.
+Note: You'll still need to replace the values of the `.env` file with your unique variables, as shown in step 3.
