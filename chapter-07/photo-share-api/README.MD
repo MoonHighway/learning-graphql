@@ -1,6 +1,6 @@
 Photo Share API
 ===============
-The finished copy of the photo-share-api!
+The finished version of the photo-share-api!
 
 Installation
 -------------
