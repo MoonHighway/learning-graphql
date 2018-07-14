@@ -23,7 +23,7 @@ PhotoShare API
 To run these files, simply:
 
 1. Go to the [photo-share-api](https://github.com/eveporcello/photo-share-api-ch05) folder.
-2. Run `npm install` on this folder.
+2. Run `npm install` on the folder.
 3. Replace the values of the `.env` file with your unique variables. 
 
 ```
@@ -31,7 +31,7 @@ DB_HOST=<YOUR_MONGODB_HOST>
 CLIENT_ID=<YOUR_GITHUB_CLIENT_ID>
 CLIENT_SECRET=<YOUR_GITHUB_CLIENT_SECRET>
 ```
-3. Run `npm start` and open your browser to `http://localhost:4000/playground`.
+4. Run `npm start` and open your browser to `http://localhost:4000/playground`.
 
 Want to see the project running on Glitch instead? 
 
