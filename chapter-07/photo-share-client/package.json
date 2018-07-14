@@ -6,6 +6,7 @@
     "apollo-boost": "^0.1.10",
     "apollo-cache-persist": "^0.1.1",
     "apollo-link-ws": "^1.0.8",
+    "apollo-upload-client": "^8.1.0",
     "apollo-utilities": "^1.0.16",
     "graphql": "^0.13.2",
     "react": "^16.4.1",
