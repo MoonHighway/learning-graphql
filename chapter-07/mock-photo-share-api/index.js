@@ -22,5 +22,5 @@ const server = new ApolloServer({
 })
 
 server.listen({ port: 4000 }, () =>
-  console.log(`Mock Photo Share GraphQL Service`)
+  console.log(`Mock Photo Share GraphQL Service running on http://localhost:4000`)
 )

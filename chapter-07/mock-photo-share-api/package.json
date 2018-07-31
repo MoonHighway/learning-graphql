@@ -3,10 +3,10 @@
     "start": "nodemon ."
   },
   "dependencies": {
-    "apollo-server": "^2.0.0-rc.5",
-    "graphql": "^0.13.2"
+    "apollo-server": "2.0.0",
+    "graphql": "0.13.2"
   },
   "devDependencies": {
-    "nodemon": "^1.18.1"
+    "nodemon": "1.18.1"
   }
 }
