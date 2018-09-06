@@ -14,5 +14,5 @@ Resource Links
 
 ### Chapter Examples
 * [Snowtooth API](http://snowtooth.moonhighway.com): The Snowtooth Mountain GraphQL API
-* [Union Types](https://www.graphqlbin.com/v2/ANgjtr): Union types sample GraphQL Bin/Playground
-* [Interfaces](https://www.graphqlbin.com/v2/yoyPfz): Interfaces sample on GraphQL Bin/Playground
+* [Union Types](https://launchpad.graphql.com/r94qxj5q4n): Union types sample 
+* [Interfaces](https://launchpad.graphql.com/j8r375km3p): Interfaces sample 
