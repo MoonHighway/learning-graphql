@@ -9,23 +9,24 @@ const path = require('path')
 const depthLimit = require('graphql-depth-limit')
 const { createComplexityLimitRule } = require('graphql-validation-complexity')
 
-require('dotenv').config()
+// TODO: Not yet! I'll want to use this eventually...but for now, table it.
+// require('dotenv').config()
 var typeDefs = readFileSync('./typeDefs.graphql', 'UTF-8')
 
 async function start() {
   const app = express()
-  const MONGO_DB = process.env.DB_HOST
+  const MONGO_URI = process.env.MONGO_URI
   const pubsub = new PubSub()
   let db
 
   try {
-    const client = await MongoClient.connect(MONGO_DB, { useNewUrlParser: true })
+    const client = await MongoClient.connect(MONGO_URI, { useNewUrlParser: true })
     db = client.db()
   } catch (error) {
     console.log(`
     
       Mongo DB Host not found!
-      please add DB_HOST environment variable to .env file
+      please add MONGO_URI environment variable
 
       exiting...
        
@@ -36,13 +37,12 @@ async function start() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    engine: true,
-    validationRules: [
-      depthLimit(5),
-      createComplexityLimitRule(1000, {
-          onCost: cost => console.log('query cost: ', cost)
-      })
-    ],
+    // validationRules: [
+    //   depthLimit(5),
+    //   createComplexityLimitRule(1000, {
+    //       onCost: cost => console.log('query cost: ', cost)
+    //   })
+    // ],
     context: async ({ req, connection }) => {
       const githubToken = req ? req.headers.authorization : connection.context.Authorization
       const currentUser = await db.collection('users').findOne({ githubToken })

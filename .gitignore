@@ -65,3 +65,6 @@ typings/
 
 # next.js build output
 .next
+
+# Customization
+chapter-07/photo-share-api/.docker
