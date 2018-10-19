@@ -2,16 +2,49 @@
 This project contains minor tweaks I've made to the excellent examples provided by the Learning GraphQL book below.
 
 # Getting started
-## GraphQL API
 The easiest way to use this repo is to have [Docker](https://www.docker.com) installed and configured on your development machine. 
 
 You can spin up the project by running:
 
     $ npm run docker:up
 
-This will create two Docker containers - one with the GraphQL API application and its dependencies installed; and the other will be a clean instance of MongoDB just for use by this application.
+This will create three Docker containers:
++ `graphql-web` - A simple React web application to work with our GraphQL API
++ `graphql-api` - The GraphQL server
++ `graphql-mongodb` - A MongoDB server
+    - Data files are stored locally within this project at `./photo-share-api/.docker/mongodb`; these are NOT synced or committed to the repo
 
-Assuming you are using the default configuration, you should be able to explore the [GraphQL playground](http://localhost:4000/graphql) by visiting [http://localhost:4000/graphql](http://localhost:4000/graphql) to verify the application is running.
+You will want to wait until you see the entire application has loaded. You will see something like:
+```sh
+graphql-mongodb | 2018-10-19T06:11:21.755+0000 I NETWORK  [initandlisten] waiting for connections on port 27017
+graphql-mongodb | 2018-10-19T06:11:22.584+0000 I NETWORK  [listener] connection accepted from 192.168.160.3:46191 #1 (1 connection now open)
+graphql-mongodb | 2018-10-19T06:11:22.584+0000 I NETWORK  [conn1] end connection 192.168.160.3:46191 (0 connections now open)
+graphql-api    | Loaded 'mongodb:27017' in [15] seconds
+graphql-api    | wait done with status=0
+graphql-api    | [nodemon] 1.17.2
+graphql-api    | [nodemon] to restart at any time, enter `rs`
+graphql-api    | [nodemon] watching: *.*
+graphql-api    | [nodemon] starting `node .`
+graphql-web    | Starting the development server...
+graphql-web    | 
+graphql-mongodb | 2018-10-19T06:11:50.493+0000 I NETWORK  [listener] connection accepted from 192.168.160.3:57894 #2 (1 connection now open)
+graphql-mongodb | 2018-10-19T06:11:50.514+0000 I NETWORK  [conn2] received client metadata from 192.168.160.3:57894 conn2: { driver: { name: "nodejs", version: "3.1.0" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "4.9.93-linuxkit-aufs" }, platform: "Node.js v10.12.0, LE, mongodb-core: 3.1.0" }
+graphql-api    | GraphQL Server running at http://localhost:4000/graphql
+graphql-web    | Compiled successfully!
+graphql-web    | 
+graphql-web    | You can now view photo-share-client in the browser.
+graphql-web    | 
+graphql-web    |   Local:            http://localhost:3000/
+graphql-web    |   On Your Network:  http://192.168.160.4:3000/
+graphql-web    | 
+graphql-web    | Note that the development build is not optimized.
+graphql-web    | To create a production build, use npm run build.
+graphql-web    | 
+```
+
+Assuming you are using the default configuration, you should be able to explore the [GraphQL playground](http://localhost:4000/graphql) by visiting [http://localhost:4000/graphql](http://localhost:4000/graphql) to verify the GraphQL API is running.
+
+Assuming you are using the default configuration, you should be able to see a response from [http://localhost:3000](http://localhost:3000) to verify the web application is running.
 
 
 TIP: If you want to explicitly force a clean build of the Docker images and containers for this project, you can run:
@@ -21,14 +54,6 @@ TIP: If you want to explicitly force a clean build of the Docker images and cont
 Once you have finished with your work - or if you would like to stop the project from running:
 
     $ npm run docker:down
-
-## Web UI
-As of this writing, the web application has not been Dockerized yet. Assuming you have NodeJS installed on your develvopment machine, you can simply run the following to start the web application:
-```
-$ cd photo-share-client
-$ npm start
-```
-Assuming you are using the default configuration, you should be able to see a response from [http://localhost:3000](http://localhost:3000) to verify the application is running.
 
 # Resources
 If you are looking to get started with GraphQL, you absolutely should treat yourself to the book below. It's a great way to dive into the fun world of GraphQL without too much of a headache. I found coding along with the examples to be mostly accurate; however there are definitely places that will make you scratch your head feverishly to figure out what the hell went wrong - ultimately offset by cloning the repo and just riding it out.
