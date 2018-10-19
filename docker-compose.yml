@@ -7,8 +7,6 @@ services:
       dockerfile: ./Dockerfile.dev
     container_name: 'graphql-web'
     command: ./node_modules/.bin/react-scripts start
-    environment:
-      - CLIENT_ID=2ebb206285af39a776cc
     ports:
       - "3000:3000"
     # If you want local changes to update the Docker container, you can pass through project files like this:
@@ -24,9 +22,6 @@ services:
     container_name: 'graphql-api'
     # This service will not start until either the mongodb service is available OR thirty seconds have elapsed
     command: sh -c './scripts/wait-for.sh --timeout=30 mongodb:27017 && ./node_modules/.bin/nodemon -e js,json,graphql'
-    environment:
-      - MONGO_URI=mongodb://mongodb:27017/photoshare
-      - CLIENT_ID=2ebb206285af39a776cc
     ports:
       - "4000:4000"
       - "9229:9229"
