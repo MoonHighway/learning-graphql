@@ -7,9 +7,9 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon -e js,json,graphql",
-    "docker:up": "docker-compose up -d && docker-compose logs -f",
-    "docker:up:clean": "docker-compose up --remove-orphans --build -d && docker-compose logs -f",
-    "docker:down": "docker-compose down",
+    "docker:up": "cd .. && docker-compose up -d && docker-compose logs -f",
+    "docker:up:clean": "cd .. && docker-compose up --remove-orphans --build -d && docker-compose logs -f",
+    "docker:down": "cd .. && docker-compose down",
     "docker:nuke": "npm run docker:nuke:containers && docker rmi -f $(docker images -q)",
     "docker:nuke:containers": "docker rm $(docker ps -aq)",
     "docker:refresh": "npm run docker:down && npm run docker:up",

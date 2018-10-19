@@ -1,5 +1,8 @@
 scalar DateTime
 
+"""
+A User of our system
+"""
 type User {
     githubLogin: ID!
     name: String
@@ -19,6 +22,9 @@ type Photo {
     created: DateTime!
 }
 
+"""
+These are the currently supported categories for uploaded photos.
+"""
 enum PhotoCategory {
     SELFIE
     PORTRAIT
@@ -41,9 +47,18 @@ type AuthPayload {
 
 type Query {
     me: User
+
+    """
+    Query to count the total number of photos    
+    """
     totalPhotos: Int!
+
     allPhotos: [Photo!]!
     Photo(id: ID!): Photo
+
+    """
+    Query to count the total number of users    
+    """
     totalUsers: Int!
     allUsers: [User!]!
     User(login: ID!): User
