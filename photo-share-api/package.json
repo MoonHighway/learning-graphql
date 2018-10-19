@@ -1,0 +1,32 @@
+{
+  "name": "photo-share-api",
+  "version": "1.0.0",
+  "description": "An app for sharing photos",
+  "main": "index.js",
+  "author": "Moon Highway",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon -e js,json,graphql",
+    "docker:up": "docker-compose up -d && docker-compose logs -f",
+    "docker:up:clean": "docker-compose up --remove-orphans --build -d && docker-compose logs -f",
+    "docker:down": "docker-compose down",
+    "docker:nuke": "npm run docker:nuke:containers && docker rmi -f $(docker images -q)",
+    "docker:nuke:containers": "docker rm $(docker ps -aq)",
+    "docker:refresh": "npm run docker:down && npm run docker:up",
+    "docker:refresh:clean": "npm run docker:down && npm run docker:up:clean"
+  },
+  "dependencies": {
+    "apollo-server-express": "2.0.0",
+    "dotenv": "6.0.0",
+    "express": "4.16.3",
+    "graphql": "0.13.2",
+    "graphql-depth-limit": "1.1.0",
+    "graphql-playground-middleware-express": "1.7.1",
+    "graphql-validation-complexity": "0.2.3",
+    "mongodb": "3.1.0",
+    "node-fetch": "2.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "1.17.2"
+  }
+}
