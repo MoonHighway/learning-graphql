@@ -1,3 +1,8 @@
 node_modules
+# Docker and related assets
 photo-share-api/.docker
 photo-share-api/assets
+
+# Environment variables
+photo-share-api/.env
+photo-share-client/.env
