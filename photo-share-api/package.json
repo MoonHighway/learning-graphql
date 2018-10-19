@@ -1,6 +1,6 @@
 {
   "name": "photo-share-api",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "An app for sharing photos",
   "main": "index.js",
   "author": "Moon Highway",
