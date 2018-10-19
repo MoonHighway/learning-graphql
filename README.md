@@ -1,5 +1,39 @@
-Learning GraphQL
-=================
+# Welcome
+This project contains minor tweaks I've made to the excellent examples provided by the Learning GraphQL book below.
+
+# Getting started
+## GraphQL API
+The easiest way to use this repo is to have [Docker](https://www.docker.com) installed and configured on your development machine. 
+
+You can spin up the project by running:
+
+    $ npm run docker:up
+
+This will create two Docker containers - one with the GraphQL API application and its dependencies installed; and the other will be a clean instance of MongoDB just for use by this application.
+
+Assuming you are using the default configuration, you should be able to explore the [GraphQL playground](http://localhost:4000/graphql) by visiting [http://localhost:4000/graphql](http://localhost:4000/graphql) to verify the application is running.
+
+
+TIP: If you want to explicitly force a clean build of the Docker images and containers for this project, you can run:
+
+    $ npm run docker:up:clean
+
+Once you have finished with your work - or if you would like to stop the project from running:
+
+    $ npm run docker:down
+
+## Web UI
+As of this writing, the web application has not been Dockerized yet. Assuming you have NodeJS installed on your develvopment machine, you can simply run the following to start the web application:
+```
+$ cd photo-share-client
+$ npm start
+```
+Assuming you are using the default configuration, you should be able to see a response from [http://localhost:3000](http://localhost:3000) to verify the application is running.
+
+# Resources
+If you are looking to get started with GraphQL, you absolutely should treat yourself to the book below. It's a great way to dive into the fun world of GraphQL without too much of a headache. I found coding along with the examples to be mostly accurate; however there are definitely places that will make you scratch your head feverishly to figure out what the hell went wrong - ultimately offset by cloning the repo and just riding it out.
+
+## Learning GraphQL
 The code samples for *Learning GraphQL* by Eve Porcello and Alex Banks, published by O'Reilly Media
 
 |          |          |
