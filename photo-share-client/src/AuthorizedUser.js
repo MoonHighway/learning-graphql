@@ -58,7 +58,7 @@ class AuthorizedUser extends Component {
     }
 
     requestCode() {
-        var clientID = 'deba4977ddbd7ceee828'
+        var clientID = '2ebb206285af39a776cc'
         window.location = `https://github.com/login/oauth/authorize?client_id=${clientID}&scope=user`
     }
 
