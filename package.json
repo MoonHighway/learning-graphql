@@ -1,0 +1,27 @@
+{
+  "name": "learning-graphql",
+  "version": "1.0.0",
+  "description": "This project contains minor tweaks I've made to the excellent examples provided by the Learning GraphQL book.",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run docker:up",
+    "docker:up": "docker-compose up -d && docker-compose logs -f",
+    "docker:up:clean": "docker-compose up --remove-orphans --build -d && docker-compose logs -f",
+    "docker:down": "docker-compose down",
+    "docker:nuke": "npm run docker:nuke:containers && docker rmi -f $(docker images -q)",
+    "docker:nuke:containers": "docker rm $(docker ps -aq)",
+    "docker:refresh": "npm run docker:down && npm run docker:up",
+    "docker:refresh:clean": "npm run docker:down && npm run docker:up:clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheRobBrennan/learning-graphql.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheRobBrennan/learning-graphql/issues"
+  },
+  "homepage": "https://github.com/TheRobBrennan/learning-graphql#readme"
+}
