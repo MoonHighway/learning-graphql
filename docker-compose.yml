@@ -42,7 +42,8 @@ services:
     environment:
       - MONGO_DATA_DIR=/data/db
       - MONGO_LOG_DIR=/dev/null
-    volumes:
-      - ./photo-share-api/.docker/mongodb/data/db:/data/db
+    # If you want to persist MongoDB data after a container has been stopped/deleted, uncomment the volumes section
+    # volumes:
+    #   - ./photo-share-api/.docker/mongodb/data/db:/data/db
     ports:
       - "27017:27017"
