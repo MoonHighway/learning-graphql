@@ -4,8 +4,9 @@ This project contains minor tweaks I've made to the excellent examples provided 
 # Getting started
 The easiest way to use this repo is to have [Docker](https://www.docker.com) installed and configured on your development machine. 
 
-You can spin up the project by running:
+You can spin up the project by navigating to the `photo-share-api` directory and running:
 
+    $ cd photo-share-api
     $ npm run docker:up
 
 This will create three Docker containers:
