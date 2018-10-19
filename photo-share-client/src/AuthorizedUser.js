@@ -55,6 +55,7 @@ class AuthorizedUser extends Component {
         let data = this.props.client.readQuery({ query: ROOT_QUERY })
         data.me = null
         this.props.client.writeQuery({ query: ROOT_QUERY, data })
+        this.forceUpdate()
     }
 
     requestCode() {
