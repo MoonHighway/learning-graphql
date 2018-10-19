@@ -9,8 +9,7 @@ const path = require('path')
 const depthLimit = require('graphql-depth-limit')
 const { createComplexityLimitRule } = require('graphql-validation-complexity')
 
-// TODO: Not yet! I'll want to use this eventually...but for now, table it.
-// require('dotenv').config()
+require('dotenv').config()
 var typeDefs = readFileSync('./typeDefs.graphql', 'UTF-8')
 
 async function start() {
@@ -55,7 +54,8 @@ async function start() {
   app.get('/playground', expressPlayground({ endpoint: '/graphql' }))
 
   app.get('/', (req, res) => {
-    let url = `https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}&scope=user`
+    const clientId = process.env.GITHUB_OAUTH_APPLICATION_CLIENT_ID
+    let url = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=user`
     res.end(`<a href="${url}">Sign In with Github</a>`)
   })
 
