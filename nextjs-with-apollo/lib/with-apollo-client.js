@@ -28,12 +28,12 @@ export default (App) => {
               apolloClient={apollo}
             />
           )
-          console.log(`Apollo SSR is working as expected 😀`)
+          // console.log(`Apollo SSR is working as expected 😀`)
         } catch (error) {
           // Prevent Apollo Client GraphQL errors from crashing SSR.
           // Handle them in components via the data.error prop:
           // https://www.apollographql.com/docs/react/api/react-apollo.html#graphql-query-data-error
-          console.error('Error while running `getDataFromTree`', error)
+          console.error('Apollo SSR error while running `getDataFromTree`', error)
         }
 
         // getDataFromTree does not call componentWillUnmount
