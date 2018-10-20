@@ -4,6 +4,21 @@ This project contains minor tweaks I've made to the excellent examples provided 
 # Getting started
 The easiest way to use this repo is to have [Docker](https://www.docker.com) installed and configured on your development machine. 
 
+Before starting this project, you will need to create two `.env` files - one in `./photo-share-api` and one in `./photo-share-client`.
+
+Please go to [GitHub Developer Settings](https://github.com/settings/developers) to create a new [OAuth Application](https://github.com/settings/applications/new) with the following settings:
++ Application name - Whatever you want
++ Homepage URL - [http://localhost:3000](http://localhost:3000)
++ Authorization callback URL - [http://localhost:3000](http://localhost:3000)
+
+Be sure to note the `Client ID` and `Client Secret` values.
+
+Each directory contains a `sample.env` file for reference. Simply copy those values into a new `.env` file with appropriate settings which include:
++ GitHub client ID
++ GitHub client secret
++ OPTIONAL: MongoDB connection string
+    - It is fine to use the default connection string of `mongodb://mongodb:27017/photoshare` - by default it will create a new database for you on the `graphql-mongodb` service.
+
 You can spin up the project by running:
 
     $ npm start
@@ -12,7 +27,7 @@ This will create three Docker containers:
 + `graphql-web` - A simple React web application to work with our GraphQL API
 + `graphql-api` - The GraphQL server
 + `graphql-mongodb` - A MongoDB server
-    - Data files are stored locally within this project at `./photo-share-api/.docker/mongodb`; these are NOT synced or committed to the repo
+    - Data files are stored locally within this project at `./photo-share-api/.docker/mongodb`; these are NOT synced or committed to the repo unless you specifically modify the `./docker-compose.yml` file (see "If you want to persist MongoDB data" for more details) 
 
 You will want to wait until you see the entire application has loaded. You will see something like:
 ```sh

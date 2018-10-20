@@ -51,8 +51,8 @@ module.exports = {
         login,
         name
       } = await authorizeWithGithub({
-        client_id: '2ebb206285af39a776cc',
-        client_secret: '815a1bf9fc7edb2fb69caf4df922e5d8c9f5828e',
+        client_id: process.env.GITHUB_OAUTH_APPLICATION_CLIENT_ID,
+        client_secret: process.env.GITHUB_OAUTH_APPLICATION_CLIENT_SECRET,
         code
       })
 

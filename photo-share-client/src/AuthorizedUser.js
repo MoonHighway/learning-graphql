@@ -59,7 +59,7 @@ class AuthorizedUser extends Component {
     }
 
     requestCode() {
-        var clientID = '2ebb206285af39a776cc'
+        var clientID = process.env.REACT_APP_GITHUB_OAUTH_APPLICATION_CLIENT_ID
         window.location = `https://github.com/login/oauth/authorize?client_id=${clientID}&scope=user`
     }
 
