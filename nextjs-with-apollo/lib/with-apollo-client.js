@@ -28,6 +28,7 @@ export default (App) => {
               apolloClient={apollo}
             />
           )
+          console.log(`Apollo SSR is working as expected 😀`)
         } catch (error) {
           // Prevent Apollo Client GraphQL errors from crashing SSR.
           // Handle them in components via the data.error prop:
