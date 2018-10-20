@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "apollo-boost": "^0.1.16",
+    "dotenv-webpack": "^1.5.7",
     "graphql": "^14.0.2",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^7.0.2",
