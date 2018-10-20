@@ -36,12 +36,12 @@ async function start() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    validationRules: [
-      depthLimit(5),
-      createComplexityLimitRule(1000, {
-          onCost: cost => console.log('query cost: ', cost)
-      })
-    ],
+    // validationRules: [
+    //   depthLimit(5),
+    //   createComplexityLimitRule(1000, {
+    //       onCost: cost => console.log('query cost: ', cost)
+    //   })
+    // ],
     context: async ({ req, connection }) => {
       const githubToken = req ? req.headers.authorization : connection.context.Authorization
       const currentUser = await db.collection('users').findOne({ githubToken })
