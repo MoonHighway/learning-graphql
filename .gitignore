@@ -7,3 +7,6 @@ photo-share-api/assets
 # Environment variables
 photo-share-api/.env
 photo-share-client/.env
+
+# Build
+nextjs-with-apollo/.next
