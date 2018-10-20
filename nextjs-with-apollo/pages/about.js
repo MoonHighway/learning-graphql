@@ -32,10 +32,6 @@ export default () => (
         </a>. This method returns a promise; at the point in which the promise
         resolves, our Apollo Client store is completely initialized.
       </p>
-      <p>
-        This example relies on <a href='http://graph.cool'>graph.cool</a> for
-        its GraphQL backend.
-      </p>
     </article>
   </App>
 )
