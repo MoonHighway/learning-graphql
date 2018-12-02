@@ -9,8 +9,8 @@ services:
     command: ./node_modules/.bin/next
     ports:
       - "3000:3000"
-    # volumes:
-    #   - ./nextjs-with-apollo:/usr/src
+    volumes:
+      - ./nextjs-with-apollo:/usr/src
     depends_on:
       - graphql-api
 
