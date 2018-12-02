@@ -18,7 +18,7 @@
     "url": "git+https://github.com/TheRobBrennan/learning-graphql.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Rob Brennan <rob@therobbrennan.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/TheRobBrennan/learning-graphql/issues"
