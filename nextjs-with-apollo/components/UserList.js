@@ -17,9 +17,11 @@ export const allUsersQueryVars = {}
 export default function UserList () {
   return (
     <Query query={allUsersQuery} variables={allUsersQueryVars}>
-      {({ loading, error, data: { allUsers} }) => {
-        if (error) return <ErrorMessage message='Error loading users.' />
+      {({ loading, error, data }) => {
+        if (error) return <ErrorMessage message={`${error}`} />
         if (loading) return <div>Loading</div>
+        if (!data) return null
+        const { allUsers } = data
 
         return (
           <section>
