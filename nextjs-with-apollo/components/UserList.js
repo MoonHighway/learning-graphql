@@ -34,6 +34,7 @@ export default function UserList () {
                 </li>
               ))}
             </ul>
+            <button onClick={() => { window.location = '/users' }}>Refresh users</button>
           </section>
         )
       }}
