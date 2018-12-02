@@ -1,4 +1,4 @@
-import { Query } from 'react-apollo'
+import { Query, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import ErrorMessage from './ErrorMessage'
 
@@ -12,7 +12,21 @@ export const allUsersQuery = gql`
   }
 `
 
+const ADD_FAKE_USERS_MUTATION = gql`
+  mutation addFakeUsers($count: Int!) {
+    addFakeUsers(count: $count) {
+      githubLogin
+      name
+      avatar
+    }
+  }
+`
+
 export const allUsersQueryVars = {}
+
+export const refreshUsers = () => {
+  window.location = '/users'
+}
 
 export default function UserList () {
   return (
@@ -34,7 +48,18 @@ export default function UserList () {
                 </li>
               ))}
             </ul>
-            <button onClick={() => { window.location = '/users' }}>Refresh users</button>
+            <button id='btn-refresh-users' onClick={refreshUsers}>Refresh users</button>
+            <p />
+            <Mutation mutation={ADD_FAKE_USERS_MUTATION} variables={{ count: 1 }} onCompleted={refreshUsers} >
+              {addFakeUsers => (
+                <button
+                  id='btn-add-fake-users'
+                  onClick={addFakeUsers}
+                >
+                  Add Fake User
+                </button>
+              )}
+            </Mutation>
           </section>
         )
       }}
