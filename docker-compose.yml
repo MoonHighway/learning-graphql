@@ -9,6 +9,7 @@ services:
     command: ./node_modules/.bin/next
     ports:
       - "3000:3000"
+    # If you want local changes to update in the Docker container, you can pass through project files like this:
     volumes:
       - ./nextjs-with-apollo:/usr/src
     depends_on:
@@ -22,7 +23,7 @@ services:
     command: ./node_modules/.bin/react-scripts start
     ports:
       - "3001:3000"
-    # If you want local changes to update the Docker container, you can pass through project files like this:
+    # If you want local changes to update in the Docker container, you can pass through project files like this:
     volumes:
       - ./photo-share-client:/usr/src
     depends_on:
