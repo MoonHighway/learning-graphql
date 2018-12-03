@@ -11,3 +11,7 @@ photo-share-client/.env
 
 # Build
 nextjs-with-apollo/.next
+
+# Presentations
+__presentations/node_modules
+__presentations/dist
