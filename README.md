@@ -32,7 +32,7 @@ This will create the following Docker containers:
 + `graphql-web` - A simple [React](https://reactjs.org) web application to work with our GraphQL API
 + `graphql-api` - The [GraphQL](https://graphql.org) server
 + `graphql-mongodb` - A [MongoDB](https://www.mongodb.com) server
-    - By default, no database data is stored. If you would like to have this project retain data, uncommentthe following two lines in the `./docker-compose.yml` file:
+    - By default, no database data is stored. If you would like to have this project retain data, uncomment the following two lines in the `./docker-compose.yml` file:
     ```sh
     # volumes:
     #   - ./photo-share-api/.docker/mongodb/data/db:/data/db
