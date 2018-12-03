@@ -6,17 +6,17 @@ export default () => (
     <ul>
       <li>
         <a href="http://localhost:4000/playground" target="__blank">
-          The GraphQL playground
+          GraphQL playground
         </a>
       </li>
       <li>
         <a href="http://localhost:3000/" target="__blank">
-          The NextJS front-end application
+          NextJS front-end application
         </a>
       </li>
       <li>
         <a href="http://localhost:3001/" target="__blank">
-          The original React front-end
+          Original React front-end application
         </a>
       </li>
       <li>
