@@ -38,6 +38,11 @@ This will create the following Docker containers:
 
     # If you DO NOT WANT to take advantage of hot reloading in NextJS:
     command: ./node_modules/.bin/next start
+
+    # If you want local changes to update in the Docker container, you can pass through project files like this:
+    # volumes:
+    #   - ./nextjs-with-apollo:/usr/src
+
     ```
 + `graphql-web` - A simple [React](https://reactjs.org) web application to work with our GraphQL API
     - By default, this project **WILL** hot reload changes made to this app in the Docker container. If you **DO NOT WANT** hot reloading, comment out the following lines in the `./docker-compose.yml` file:
