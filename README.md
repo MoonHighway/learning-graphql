@@ -28,9 +28,20 @@ Once you have properly created and configured your `.env` files, you can spin up
     $ npm start
 
 This will create the following Docker containers:
-+ `graphql-nextjs` - A simple [NextJS](https://nextjs.org) web application to work with our GraphQL API 
++ `graphql-nextjs` - A simple [NextJS](https://nextjs.org) web application to work with our GraphQL API
+    - By default, this project will hot reload changes made to this app in the Docker container. Simply comment out the following lines in the `./docker-compose.yml` file if you do not want that to occur:
+    ```sh
+    volumes:
+      - ./nextjs-with-apollo:/usr/src
+    ```
 + `graphql-web` - A simple [React](https://reactjs.org) web application to work with our GraphQL API
-+ `graphql-api` - The [GraphQL](https://graphql.org) server
+    - By default, this project will hot reload changes made to this app in the Docker container. Simply comment out the following lines in the `./docker-compose.yml` file if you do not want that to occur:
+    ```sh
+    volumes:
+      - ./photo-share-client:/usr/src
+    ```
++ `graphql-api` - The [GraphQL](https://graphql.org) server powered by [Express](https://expressjs.com)
+    - NOTE: This is an example for educational purposes and should be hardened before deploying to production.
 + `graphql-mongodb` - A [MongoDB](https://www.mongodb.com) server
     - By default, no database data is stored. If you would like to have this project retain data, uncomment the following two lines in the `./docker-compose.yml` file:
     ```sh
@@ -40,36 +51,48 @@ This will create the following Docker containers:
 
 You will want to wait until you see the entire application has loaded. You will see something like:
 ```sh
-graphql-mongodb | 2018-10-19T06:11:21.755+0000 I NETWORK  [initandlisten] waiting for connections on port 27017
-graphql-mongodb | 2018-10-19T06:11:22.584+0000 I NETWORK  [listener] connection accepted from 192.168.160.3:46191 #1 (1 connection now open)
-graphql-mongodb | 2018-10-19T06:11:22.584+0000 I NETWORK  [conn1] end connection 192.168.160.3:46191 (0 connections now open)
-graphql-api    | Loaded 'mongodb:27017' in [15] seconds
-graphql-api    | wait done with status=0
-graphql-api    | [nodemon] 1.17.2
-graphql-api    | [nodemon] to restart at any time, enter `rs`
-graphql-api    | [nodemon] watching: *.*
-graphql-api    | [nodemon] starting `node .`
-graphql-web    | Starting the development server...
-graphql-web    | 
-graphql-mongodb | 2018-10-19T06:11:50.493+0000 I NETWORK  [listener] connection accepted from 192.168.160.3:57894 #2 (1 connection now open)
-graphql-mongodb | 2018-10-19T06:11:50.514+0000 I NETWORK  [conn2] received client metadata from 192.168.160.3:57894 conn2: { driver: { name: "nodejs", version: "3.1.0" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "4.9.93-linuxkit-aufs" }, platform: "Node.js v10.12.0, LE, mongodb-core: 3.1.0" }
-graphql-api    | GraphQL Server running at http://localhost:4000/graphql
-graphql-web    | Compiled successfully!
-graphql-web    | 
-graphql-web    | You can now view photo-share-client in the browser.
-graphql-web    | 
-graphql-web    |   Local:            http://localhost:3000/
-graphql-web    |   On Your Network:  http://192.168.160.4:3000/
-graphql-web    | 
-graphql-web    | Note that the development build is not optimized.
-graphql-web    | To create a production build, use npm run build.
-graphql-web    | 
+graphql-api       | Loaded 'mongodb:27017' in [0] seconds
+graphql-api       | wait done with status=0
+graphql-mongodb   | 2018-12-03T01:43:12.998+0000 I STORAGE  [LogicalSessionCacheRefresh] createCollection: config.system.sessions with generated UUID: 043a13f0-67d4-48d4-a4f1-a594c00cd6fa
+graphql-mongodb   | 2018-12-03T01:43:12.998+0000 I NETWORK  [initandlisten] waiting for connections on port 27017
+graphql-mongodb   | 2018-12-03T01:43:13.012+0000 I INDEX    [LogicalSessionCacheRefresh] build index on: config.system.sessions properties: { v: 2, key: { lastUse: 1 }, name: "lsidTTLIndex", ns: "config.system.sessions", expireAfterSeconds: 1800 }
+graphql-mongodb   | 2018-12-03T01:43:13.012+0000 I INDEX    [LogicalSessionCacheRefresh] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+graphql-mongodb   | 2018-12-03T01:43:13.013+0000 I INDEX    [LogicalSessionCacheRefresh] build index done.  scanned 0 total records. 0 secs
+graphql-mongodb   | 2018-12-03T01:43:13.098+0000 I NETWORK  [listener] connection accepted from 172.19.0.3:44361 #1 (1 connection now open)
+graphql-mongodb   | 2018-12-03T01:43:13.099+0000 I NETWORK  [conn1] end connection 172.19.0.3:44361 (0 connections now open)
+graphql-api       | [nodemon] 1.17.2
+graphql-api       | [nodemon] to restart at any time, enter `rs`
+graphql-api       | [nodemon] watching: *.*
+graphql-api       | [nodemon] starting `node index.js`
+graphql-nextjs    | [1:43:25 AM] Compiling server
+graphql-nextjs    | [1:43:26 AM] Compiling client
+graphql-nextjs    | [1:43:26 AM] Compiled server in 1s
+graphql-nextjs    | [1:43:30 AM] Compiled client in 4s
+graphql-nextjs    |  DONE  Compiled successfully in 4882ms1:43:30 AM
+graphql-nextjs    | 
+graphql-nextjs    | > Ready on http://localhost:3000
+graphql-mongodb   | 2018-12-03T01:43:38.111+0000 I NETWORK  [listener] connection accepted from 172.19.0.3:49348 #2 (1 connection now open)
+graphql-mongodb   | 2018-12-03T01:43:38.115+0000 I NETWORK  [conn2] received client metadata from 172.19.0.3:49348 conn2: { driver: { name: "nodejs", version: "3.1.0" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "4.9.125-linuxkit" }, platform: "Node.js v10.13.0, LE, mongodb-core: 3.1.0" }
+graphql-api       | GraphQL server running at http://localhost:4000/graphql
+graphql-web       | Starting the development server...
+graphql-web       | 
+graphql-web       | Compiled successfully!
+graphql-web       | 
+graphql-web       | You can now view photo-share-client in the browser.
+graphql-web       | 
+graphql-web       |   Local:            http://localhost:3000/
+graphql-web       |   On Your Network:  http://172.19.0.4:3000/
+graphql-web       | 
+graphql-web       | Note that the development build is not optimized.
+graphql-web       | To create a production build, use npm run build.
+graphql-web       | 
 ```
 
 Assuming you are using the default configuration, you should be able to explore the [GraphQL playground](http://localhost:4000/graphql) by visiting [http://localhost:4000/graphql](http://localhost:4000/graphql) to verify the GraphQL API is running.
 
-Assuming you are using the default configuration, you should be able to see a response from [http://localhost:3000](http://localhost:3000) to verify the web application is running.
+Assuming you are using the default configuration, you should be able to see a response from [http://localhost:3000](http://localhost:3000) to verify the NextJS web application is running.
 
+Assuming you are using the default configuration, you should be able to see a response from [http://localhost:3001](http://localhost:3001) to verify the original React web application is running.
 
 Once you have finished with your work - or if you would like to stop the project from running:
 
