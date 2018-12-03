@@ -29,7 +29,9 @@ Once you have properly created and configured your `.env` files, you can spin up
 
 This will create the following Docker containers:
 + `graphql-nextjs` - A simple [NextJS](https://nextjs.org) web application to work with our GraphQL API
-    - By default, this project **WILL** hot reload changes made to this app in the Docker container. If you DO NOT WANT hot reloading, make sure the following commands are updated for the `graphql-nextjs` service in the `./docker-compose.yml` file:
+    - By default, this project **WILL** hot reload changes made to this app in the Docker container. 
+        + There is an issue where hot module loading may prematurely dispose of NextJS pages and cause unexpected behavior **IN DEVELOPMENT MODE ONLY**. 
+        + If you **DO NOT WANT** hot reloading, make sure the following commands are updated for the `graphql-nextjs` service in the `./docker-compose.yml` file:
     ```sh
     # If you want to take advantage of hot reloading in NextJS:
     # command: ./node_modules/.bin/next
@@ -38,7 +40,7 @@ This will create the following Docker containers:
     command: ./node_modules/.bin/next start
     ```
 + `graphql-web` - A simple [React](https://reactjs.org) web application to work with our GraphQL API
-    - By default, this project **WILL** hot reload changes made to this app in the Docker container. If you DO NOT WANT hot reloading, comment out the following lines in the `./docker-compose.yml` file:
+    - By default, this project **WILL** hot reload changes made to this app in the Docker container. If you **DO NOT WANT** hot reloading, comment out the following lines in the `./docker-compose.yml` file:
     ```sh
     volumes:
       - ./photo-share-client:/usr/src
