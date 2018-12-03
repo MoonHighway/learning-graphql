@@ -23,12 +23,13 @@ Inverted
 </Notes>
 ---
 <CodeSurfer
-  code={require("raw-loader!./snippets/1.snippet")} 
+  code={require("raw-loader!./snippets/example.snippet")} 
   title="Example"
   showNumbers
   notes="One idea..."
   steps={[
-    {lines: [1], notes: "Initial constant"},
+    {}, // First step should be an overview of the snippet
+    {lines: [1]},
     {lines: [3,4,5], notes: "Generate a delay"},
     {tokens: { 3: [1] }, notes: "Tokens" }, // export
     {tokens: { 3: [3,9,10] }, notes: "Tokens" },  // const
