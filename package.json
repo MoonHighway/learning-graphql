@@ -8,6 +8,7 @@
     "docker:up": "docker-compose up -d && docker-compose logs -f",
     "docker:up:clean": "docker-compose up --remove-orphans --build -d && docker-compose logs -f",
     "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
     "docker:nuke": "npm run docker:nuke:containers && docker rmi -f $(docker images -q)",
     "docker:nuke:containers": "docker rm $(docker ps -aq)",
     "docker:refresh": "npm run docker:down && npm run docker:up",
