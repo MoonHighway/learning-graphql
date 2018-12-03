@@ -1,0 +1,40 @@
+import { Notes } from 'mdx-deck'  // https://github.com/jxnblk/mdx-deck
+import { CodeSurfer } from 'mdx-deck-code-surfer' // https://elijahmanor.com/code-surfer/
+import { Invert } from 'mdx-deck/layouts' // https://github.com/jxnblk/mdx-deck/blob/master/docs/components.md#layouts
+
+# Set up your own GraphQL sandbox using Docker
+Rob Brennan
+
+@therobbrennan | [rob@therobbrennan.com](mailto:rob@therobbrennan.com)
+
+```notes
+This section will only display in presenter mode.
+```
+---
+# Inverted
+
+export default Invert
+
+Inverted
+---
+# Slide #2
+<Notes>
+  This component will only display in presenter mode.
+</Notes>
+---
+<CodeSurfer
+  code={require("raw-loader!./snippets/1.snippet")} 
+  title="Example"
+  showNumbers
+  notes="One idea..."
+  steps={[
+    {lines: [1], notes: "Initial constant"},
+    {lines: [3,4,5], notes: "Generate a delay"},
+    {tokens: { 3: [1] }, notes: "Tokens" }, // export
+    {tokens: { 3: [3,9,10] }, notes: "Tokens" },  // const
+    {lines: [15], notes: "Are we set?"},
+    {lines: [46], notes: "Let's go!"},
+  ]}
+/>
+---
+# Thank you
