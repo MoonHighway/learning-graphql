@@ -1,6 +1,20 @@
 version: '3'
 
 services:
+  'graphql-nextjs':
+    build:
+      context: ./nextjs-with-apollo
+      dockerfile: ./Dockerfile.dev
+    container_name: 'graphql-nextjs'
+    command: ./node_modules/.bin/next
+    ports:
+      - "3000:3000"
+    # If you want local changes to update in the Docker container, you can pass through project files like this:
+    volumes:
+      - ./nextjs-with-apollo:/usr/src
+    depends_on:
+      - graphql-api
+
   'graphql-web':
     build:
       context: ./photo-share-client
@@ -8,8 +22,8 @@ services:
     container_name: 'graphql-web'
     command: ./node_modules/.bin/react-scripts start
     ports:
-      - "3000:3000"
-    # If you want local changes to update the Docker container, you can pass through project files like this:
+      - "3001:3000"
+    # If you want local changes to update in the Docker container, you can pass through project files like this:
     volumes:
       - ./photo-share-client:/usr/src
     depends_on:

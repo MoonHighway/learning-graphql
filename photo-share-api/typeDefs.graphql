@@ -60,7 +60,12 @@ type Query {
     Query to count the total number of users    
     """
     totalUsers: Int!
+
+    """
+    Query to return data for all users
+    """
     allUsers: [User!]!
+
     User(login: ID!): User
 }
 

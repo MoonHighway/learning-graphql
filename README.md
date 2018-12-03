@@ -4,8 +4,6 @@ This project contains minor tweaks I've made to the excellent examples provided 
 # Getting started
 The easiest way to use this repo is to have [Docker](https://www.docker.com) installed and configured on your development machine. 
 
-Before starting this project, you will need to create two `.env` files - one in `./photo-share-api` and one in `./photo-share-client`.
-
 Please go to [GitHub Developer Settings](https://github.com/settings/developers) to create a new [OAuth Application](https://github.com/settings/applications/new) with the following settings:
 + Application name - Whatever you want
 + Homepage URL - [http://localhost:3000](http://localhost:3000)
@@ -19,48 +17,82 @@ Each directory contains a `sample.env` file for reference. Simply copy those val
 + OPTIONAL: MongoDB connection string
     - It is fine to use the default connection string of `mongodb://mongodb:27017/photoshare` - by default it will create a new database for you on the `graphql-mongodb` service.
 
-You can spin up the project by running:
+Before starting this project, you will need to create two `.env` files - one in `./photo-share-api` and one in `./photo-share-client`. 
+
+Please copy `photo-share-api/sample.env` to `photo-share-api/.env` - replacing the placeholder values with your own settings.
+
+Please copy `photo-share-client/sample.env` to `photo-share-client/.env` - replacing the placeholder values with your own settings.
+
+Once you have properly created and configured your `.env` files, you can spin up the project by running:
 
     $ npm start
 
-This will create three Docker containers:
-+ `graphql-web` - A simple React web application to work with our GraphQL API
-+ `graphql-api` - The GraphQL server
-+ `graphql-mongodb` - A MongoDB server
-    - Data files are stored locally within this project at `./photo-share-api/.docker/mongodb`; these are NOT synced or committed to the repo unless you specifically modify the `./docker-compose.yml` file (see "If you want to persist MongoDB data" for more details) 
+This will create the following Docker containers:
++ `graphql-nextjs` - A simple [NextJS](https://nextjs.org) web application to work with our GraphQL API
+    - By default, this project will hot reload changes made to this app in the Docker container. Simply comment out the following lines in the `./docker-compose.yml` file if you do not want that to occur:
+    ```sh
+    volumes:
+      - ./nextjs-with-apollo:/usr/src
+    ```
++ `graphql-web` - A simple [React](https://reactjs.org) web application to work with our GraphQL API
+    - By default, this project will hot reload changes made to this app in the Docker container. Simply comment out the following lines in the `./docker-compose.yml` file if you do not want that to occur:
+    ```sh
+    volumes:
+      - ./photo-share-client:/usr/src
+    ```
++ `graphql-api` - The [GraphQL](https://graphql.org) server powered by [Express](https://expressjs.com)
+    - NOTE: This is an example for educational purposes and should be hardened before deploying to production.
++ `graphql-mongodb` - A [MongoDB](https://www.mongodb.com) server
+    - By default, no database data is stored. If you would like to have this project retain data, uncomment the following two lines in the `./docker-compose.yml` file:
+    ```sh
+    # volumes:
+    #   - ./photo-share-api/.docker/mongodb/data/db:/data/db
+    ```
 
 You will want to wait until you see the entire application has loaded. You will see something like:
 ```sh
-graphql-mongodb | 2018-10-19T06:11:21.755+0000 I NETWORK  [initandlisten] waiting for connections on port 27017
-graphql-mongodb | 2018-10-19T06:11:22.584+0000 I NETWORK  [listener] connection accepted from 192.168.160.3:46191 #1 (1 connection now open)
-graphql-mongodb | 2018-10-19T06:11:22.584+0000 I NETWORK  [conn1] end connection 192.168.160.3:46191 (0 connections now open)
-graphql-api    | Loaded 'mongodb:27017' in [15] seconds
-graphql-api    | wait done with status=0
-graphql-api    | [nodemon] 1.17.2
-graphql-api    | [nodemon] to restart at any time, enter `rs`
-graphql-api    | [nodemon] watching: *.*
-graphql-api    | [nodemon] starting `node .`
-graphql-web    | Starting the development server...
-graphql-web    | 
-graphql-mongodb | 2018-10-19T06:11:50.493+0000 I NETWORK  [listener] connection accepted from 192.168.160.3:57894 #2 (1 connection now open)
-graphql-mongodb | 2018-10-19T06:11:50.514+0000 I NETWORK  [conn2] received client metadata from 192.168.160.3:57894 conn2: { driver: { name: "nodejs", version: "3.1.0" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "4.9.93-linuxkit-aufs" }, platform: "Node.js v10.12.0, LE, mongodb-core: 3.1.0" }
-graphql-api    | GraphQL Server running at http://localhost:4000/graphql
-graphql-web    | Compiled successfully!
-graphql-web    | 
-graphql-web    | You can now view photo-share-client in the browser.
-graphql-web    | 
-graphql-web    |   Local:            http://localhost:3000/
-graphql-web    |   On Your Network:  http://192.168.160.4:3000/
-graphql-web    | 
-graphql-web    | Note that the development build is not optimized.
-graphql-web    | To create a production build, use npm run build.
-graphql-web    | 
+graphql-api       | Loaded 'mongodb:27017' in [0] seconds
+graphql-api       | wait done with status=0
+graphql-mongodb   | 2018-12-03T01:43:12.998+0000 I STORAGE  [LogicalSessionCacheRefresh] createCollection: config.system.sessions with generated UUID: 043a13f0-67d4-48d4-a4f1-a594c00cd6fa
+graphql-mongodb   | 2018-12-03T01:43:12.998+0000 I NETWORK  [initandlisten] waiting for connections on port 27017
+graphql-mongodb   | 2018-12-03T01:43:13.012+0000 I INDEX    [LogicalSessionCacheRefresh] build index on: config.system.sessions properties: { v: 2, key: { lastUse: 1 }, name: "lsidTTLIndex", ns: "config.system.sessions", expireAfterSeconds: 1800 }
+graphql-mongodb   | 2018-12-03T01:43:13.012+0000 I INDEX    [LogicalSessionCacheRefresh] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+graphql-mongodb   | 2018-12-03T01:43:13.013+0000 I INDEX    [LogicalSessionCacheRefresh] build index done.  scanned 0 total records. 0 secs
+graphql-mongodb   | 2018-12-03T01:43:13.098+0000 I NETWORK  [listener] connection accepted from 172.19.0.3:44361 #1 (1 connection now open)
+graphql-mongodb   | 2018-12-03T01:43:13.099+0000 I NETWORK  [conn1] end connection 172.19.0.3:44361 (0 connections now open)
+graphql-api       | [nodemon] 1.17.2
+graphql-api       | [nodemon] to restart at any time, enter `rs`
+graphql-api       | [nodemon] watching: *.*
+graphql-api       | [nodemon] starting `node index.js`
+graphql-nextjs    | [1:43:25 AM] Compiling server
+graphql-nextjs    | [1:43:26 AM] Compiling client
+graphql-nextjs    | [1:43:26 AM] Compiled server in 1s
+graphql-nextjs    | [1:43:30 AM] Compiled client in 4s
+graphql-nextjs    |  DONE  Compiled successfully in 4882ms1:43:30 AM
+graphql-nextjs    | 
+graphql-nextjs    | > Ready on http://localhost:3000
+graphql-mongodb   | 2018-12-03T01:43:38.111+0000 I NETWORK  [listener] connection accepted from 172.19.0.3:49348 #2 (1 connection now open)
+graphql-mongodb   | 2018-12-03T01:43:38.115+0000 I NETWORK  [conn2] received client metadata from 172.19.0.3:49348 conn2: { driver: { name: "nodejs", version: "3.1.0" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "4.9.125-linuxkit" }, platform: "Node.js v10.13.0, LE, mongodb-core: 3.1.0" }
+graphql-api       | GraphQL server running at http://localhost:4000/graphql
+graphql-web       | Starting the development server...
+graphql-web       | 
+graphql-web       | Compiled successfully!
+graphql-web       | 
+graphql-web       | You can now view photo-share-client in the browser.
+graphql-web       | 
+graphql-web       |   Local:            http://localhost:3000/
+graphql-web       |   On Your Network:  http://172.19.0.4:3000/
+graphql-web       | 
+graphql-web       | Note that the development build is not optimized.
+graphql-web       | To create a production build, use npm run build.
+graphql-web       | 
 ```
 
 Assuming you are using the default configuration, you should be able to explore the [GraphQL playground](http://localhost:4000/graphql) by visiting [http://localhost:4000/graphql](http://localhost:4000/graphql) to verify the GraphQL API is running.
 
-Assuming you are using the default configuration, you should be able to see a response from [http://localhost:3000](http://localhost:3000) to verify the web application is running.
+Assuming you are using the default configuration, you should be able to see a response from [http://localhost:3000](http://localhost:3000) to verify the NextJS web application is running.
 
+Assuming you are using the default configuration, you should be able to see a response from [http://localhost:3001](http://localhost:3001) to verify the original React web application is running.
 
 Once you have finished with your work - or if you would like to stop the project from running:
 
@@ -75,13 +107,3 @@ The code samples for *Learning GraphQL* by Eve Porcello and Alex Banks, publishe
 |          |          |
 |----------|----------|
 | ![Learning GraphQL Book Cover](https://raw.githubusercontent.com/MoonHighway/learning-graphql/master/learning-graphql.jpg) | If you are ready to start building fullstack applications with GraphQL, Apollo, and React, this book is for you. In this book, Eve Porcello and Alex Banks provide a complete overview of GraphQL from the ground up which includes building your own full stack photo sharing application.<br><br> __Buy the book__: [Amazon](https://www.amazon.com/Learning-GraphQL-Declarative-Fetching-Modern/dp/1492030716) - [O'Reilly](http://shop.oreilly.com/product/0636920137269.do) <br>__Take the Course__: [GraphQL Workshop](https://www.graphqlworkshop.com)<br><br>  |
-
-### Table of Contents
-
-* __Chapter 1__ : [Welcome To GraphQL](https://github.com/MoonHighway/learning-graphql/tree/master/chapter-01)
-* __Chapter 2__ : [Graph Theory](https://github.com/MoonHighway/learning-graphql/tree/master/chapter-02)
-* __Chapter 3__ : [The GraphQL Language](https://github.com/MoonHighway/learning-graphql/tree/master/chapter-03)
-* __Chapter 4__ : [Designing a Schema](https://github.com/MoonHighway/learning-graphql/tree/master/chapter-04)
-* __Chapter 5__ : [Creating a GraphQL API](https://github.com/MoonHighway/learning-graphql/tree/master/chapter-05)
-* __Chapter 6__ : [GraphQL Clients](https://github.com/MoonHighway/learning-graphql/tree/master/chapter-06)
-* __Chapter 7__ : [GraphQL in the Real World](https://github.com/MoonHighway/learning-graphql/tree/master/chapter-07)
