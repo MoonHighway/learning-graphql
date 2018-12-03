@@ -69,7 +69,7 @@ async function start() {
   httpServer.timeout = 5000
 
   httpServer.listen({ port: 4000 }, () =>
-    console.log(`GraphQL Server running at http://localhost:4000${server.graphqlPath}`)
+    console.log(`GraphQL server running at http://localhost:4000${server.graphqlPath}`)
   )
 }
 
