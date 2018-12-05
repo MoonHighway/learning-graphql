@@ -42,6 +42,9 @@ All code in this presentation is available at [https://github.com/TheRobBrennan/
   </Appear>
 </ul>
 
+```notes
+For this demo, there are three things that we are going to need.
+```
 ---
 # What would be a bonus?
 
@@ -49,10 +52,13 @@ All code in this presentation is available at [https://github.com/TheRobBrennan/
   <Appear>
     <li>Lightweight tools to explore our GraphQL API</li>
     <li>Multiple front-end applications using our GraphQL</li>
-    <li>The ability to use GitHub to sign in and out of our application</li>
+    <li>The ability to use GitHub to sign in and out of a sample application</li>
   </Appear>
 </ul>
 
+```notes
+Let's consider three things that might be nice to have.
+```
 ---
 # Good news!
 ## We can do it all.
@@ -65,6 +71,9 @@ All code in this presentation is available at [https://github.com/TheRobBrennan/
   </Appear>
 </ul>
 
+```notes
+We have one goal.
+```
 ---
 # What are we working with?
 ![](./images/what-are-we-working-with.png)
@@ -101,33 +110,34 @@ As you might imagine, not only is this expensive but it introduces all kinds of 
   </Appear>
 </ul>
 
+```notes
+VMs definitely have their place, but...
+
+What if we used Docker and containerized our apps/services?
+```
 ---
 # Remember?
 ![](./images/what-are-we-working-with.png)
 
 ```notes
-Aha! We have four discrete apps/services we want to work with. Imagine we named each container AppA, AppB, AppC, AppD, etc...
-```
----
-<Image src='./images/docker-containerized-applictions.png' size='60%' />
+Aha! We have four discrete ideas for each app/service we want to work with.
 
-```notes
-What is a container, exactly?
+With Docker, we can have our apps/services existing as separate containers (instances of an image - which is merely a recipe for creating the app or service)
 ```
 ---
-# Docker
+# Docker: Container
 "A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings."
 
 [https://www.docker.com/resources/what-container](https://www.docker.com/resources/what-container)
 
 ```notes
-With Docker, we can have our apps/services existing as separate containers (instances of an image - which is merely a recipe for creating the app or service)
+Imagine a case where we have several apps - one that may be a NodeJS app running under Node.js v8.x, a Node.js v10.x app, a legacy lightweight service that might be running on an unsupported version of Node.js v4.x...We're not reliant upon the host to have a specific version of Node.js installed. Each container is built and contains everything it needs to run as a standalone process...or a case where our architecture is ready to support scaling such that we have two containers for each front-end app, three containers for the back-end API, and maybe five MongoDB services in a cluster.
 
-How might we be able to scale our solution?
-
-We can have one host - a laptop, a server in the cloud, multiple servers appearing to act as a single host, etc - and define as many containers as we want. Imagine a case where our architecture is ready to support scaling such that we have two containers for each front-end app, three containers for the back-end API, and maybe five MongoDB services in a cluster.
+If we thought of each container as AppA, AppB, AppC, AppD, etc...
 
 ```
+---
+<Image src='./images/docker-containerized-applictions.png' size='60%' />
 
 ---
 export default Split
@@ -136,6 +146,11 @@ export default Split
 
 [READ: Get started](https://www.docker.com/get-started)
 
+```notes
+That's a quick overview of Docker. For more information, you can check out this link.
+
+Now that we have an understanding of how we might use Docker, let's see how this will apply to our current project.
+```
 ---
 # Project checklist
 
@@ -187,6 +202,19 @@ Our back-end server is located at `./photo-share-api`
   ]}
 />
 
+```notes
+Walkthrough the following:
++ FROM
++ Create the app on the base image
++ Install dependencies on the image
++ Copy our application code
++ What is this wait for?
++ Expose ports
++ Start the process
++ Zoom out
+
+Cross the item off our checklist.
+```
 ---
 # Project checklist
 
@@ -205,7 +233,7 @@ This project contains two front-end applications
 `photo-share-client` and `nextjs-with-apollo`
 
 ```notes
-photo-share-client is the project created for the Learning GraphQL book.
+photo-share-client is the project created as part of following along with the Learning GraphQL book.
 
 nextjs-with-apollo is the project I created to explore NextJS and GraphQL.
 ```
@@ -230,6 +258,19 @@ nextjs-with-apollo is the project I created to explore NextJS and GraphQL.
   ]}
 />
 
+```notes
+Walkthrough the following:
++ FROM
++ Create the app on the base image
++ Install dependencies on the image
++ Copy our application code
++ Expose ports
++ Start the process
++ Zoom out
+
+Let's do a similar thing with the other front-end application we have...
+```
+
 ---
 # nextjs-with-apollo
 
@@ -252,9 +293,21 @@ nextjs-with-apollo is the project I created to explore NextJS and GraphQL.
 />
 
 ```notes
+Walkthrough the following:
++ FROM
++ Create the app on the base image
++ Install dependencies on the image
++ Copy our application code
++ Build the application
++ Expose ports
++ Start the process
++ Zoom out
+
 Wait. We built the application, and we're still starting it in development mode?
 
 Hang in there. You'll see why shortly.
+
+Cross the item off our checklist.
 ```
 
 ---
@@ -281,6 +334,12 @@ Hang in there. You'll see why shortly.
   ]}
 />
 
+```notes
+This slide is just an overview of the file. 
+
+Let's dive in and take a look at specific app/service definitions.
+```
+
 ---
 <CodeSurfer
   code={require("raw-loader!./snippets/docker-compose-mongodb.snippet")} 
@@ -294,9 +353,21 @@ Hang in there. You'll see why shortly.
     {range: [4,6], notes: ""},
     {range: [7,9], notes: ""},
     {range: [10,11], notes: ""},
-    {lines: [11], notes: ""},
   ]}
 />
+
+```notes
+Walkthrough the following:
++ Service name
++ Image
+  - Great time to explain why this is being used, and where to find more
++ Container name
++ Environment variables
++ OPTIONAL: Persist data to the project folder
++ Port mapping
+
+Let's look at our back-end server.
+```
 
 ---
 <CodeSurfer
@@ -315,6 +386,19 @@ Hang in there. You'll see why shortly.
   ]}
 />
 
+```notes
+Walkthrough the following:
++ Service name
++ Build
++ Container name
++ Command to start the server
++ Ports
++ Mapping local code changes to the process
++ Look! This depends on MongoDB being up and running
+
+Let's look at the first front-end application - the example from the book Learning GraphQL.
+```
+
 ---
 <CodeSurfer
   code={require("raw-loader!./snippets/docker-compose-graphql-web.snippet")} 
@@ -332,6 +416,19 @@ Hang in there. You'll see why shortly.
   ]}
 />
 
+```notes
+Walkthrough the following:
++ Service name
++ Build
++ Container name
++ Command to start the server
++ Ports
++ Mapping local code changes to the process
++ Look! This depends on our back-end server being up and running
+
+Let's look at the second front-end application - an example project using NextJS with Apollo.
+```
+
 ---
 <CodeSurfer
   code={require("raw-loader!./snippets/docker-compose-graphql-nextjs.snippet")} 
@@ -348,6 +445,20 @@ Hang in there. You'll see why shortly.
     {range: [15,16], notes: ""},
   ]}
 />
+
+```notes
+Walkthrough the following:
++ Service name
++ Build
++ Container name
++ Command to start the server
+  - Discuss why we have two options
++ Ports
++ Mapping local code changes to the process
++ Look! This depends on our back-end server being up and running
+
+Our docker-compose.yml file will look like...
+```
 
 ---
 <CodeSurfer
@@ -370,7 +481,7 @@ Tada! Let's take a look at our docker-compose file one last time before issuing 
   <li><s>Initial setup of MongoDB for Docker</s></li>
   <li><s>Initial setup of our back-end server for Docker</s></li>
   <li><s>Initial setup of our front-end applications for Docker</s></li>
-  <li><s>Bring everything together</s></li>
+  <li>Bring everything together</li>
   <li>Explore GraphQL</li>
 </ul>
 
