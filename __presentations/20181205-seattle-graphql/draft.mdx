@@ -41,6 +41,12 @@ export default Split
 
 ![](images/woatw-poster-20181206.jpg)
 
+```notes
+Shout out for the benefit event for Life Center Northwest
+
+Also mention that they will be playing our music on their float in this year's Rose Bowl parade
+```
+
 ---
 # Background
 
@@ -147,7 +153,7 @@ VMs definitely have their place, but...
 What if we used Docker and containerized our apps/services?
 ```
 ---
-# Remember?
+# These look like containers.
 ![](./images/what-are-we-working-with.png)
 
 ```notes
@@ -380,6 +386,72 @@ Let's dive in and take a look at specific app/service definitions.
     {}, // First step should be an overview of the snippet
     {lines: [1], notes: ""},
     {lines: [2], notes: ""},
+  ]}
+/>
+
+```notes
+Walkthrough the following:
++ Service name
++ Image
+
+Hold on. Let's talk about Docker images for a second.
+```
+
+---
+export default Invert
+
+# Docker images
+## Your ticket to exploration
+
+---
+<Image src='./images/kitematic.png' />
+
+```notes
+Whoa. Pretty freakin' cool, huh?
+
+Instead of worry about defining a Dockerfile for our MongoDB, let's use an existing image instead...
+```
+
+---
+<Image src='./images/kitematic-mongo.png' />
+
+---
+export default Invert
+
+# How do I use this image?
+
+```notes
+Let's take a look at how this appears on Docker Hub...
+```
+
+---
+<Image src='./images/docker-hub-mongo-00.png' />
+
+```notes
+Ok...
+```
+
+---
+<Image src='./images/docker-hub-mongo-01.png' />
+
+```notes
+Getting warmer...
+```
+
+---
+<Image src='./images/docker-hub-mongo-02.png' />
+
+```notes
+Oh look!! This looks like what we have in our docker-compose.yml file.
+```
+
+---
+<CodeSurfer
+  code={require("raw-loader!./snippets/docker-compose-mongodb.snippet")} 
+  title="Docker Compose: MongoDB"
+  showNumbers
+  steps={[
+    {lines: [2], notes: ""},
     {lines: [3], notes: ""},
     {range: [4,6], notes: ""},
     {range: [7,9], notes: ""},
@@ -389,9 +461,7 @@ Let's dive in and take a look at specific app/service definitions.
 
 ```notes
 Walkthrough the following:
-+ Service name
 + Image
-  - Great time to explain why this is being used, and where to find more
 + Container name
 + Environment variables
 + OPTIONAL: Persist data to the project folder
