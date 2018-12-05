@@ -4,6 +4,7 @@
   "description": "This project contains minor tweaks I've made to the excellent examples provided by the Learning GraphQL book.",
   "main": "index.js",
   "scripts": {
+    "preinstall": "cd __presentations && npm install && cd ..",
     "start": "npm run docker:up",
     "start:presentation": "cd __presentations && npm start",
     "docker:up": "docker-compose up -d && docker-compose logs -f",
