@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run docker:up",
+    "start:presentation": "cd __presentations && npm start",
     "docker:up": "docker-compose up -d && docker-compose logs -f",
     "docker:up:clean": "docker-compose up --remove-orphans --build -d && docker-compose logs -f",
     "docker:down": "docker-compose down",
