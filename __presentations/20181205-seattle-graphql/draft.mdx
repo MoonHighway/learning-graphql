@@ -40,6 +40,7 @@ export default Split
 ![](images/woatw-showbox.jpg)
 
 ![](images/woatw-poster-20181206.jpg)
+[https://www.woatw.com](https://www.woatw.com)
 
 ```notes
 Shout out for the benefit event for Life Center Northwest
@@ -104,7 +105,7 @@ Let's consider three things that might be nice to have.
 # Our goal
 <ul style={{listStyle: 'none'}}>
   <Appear>
-    <li>Create an easy to spin up environment for GraphQL</li>
+    <li>Create an easy to spin up environment that can be destroyed & recreated as desired</li>
   </Appear>
 </ul>
 
@@ -148,10 +149,13 @@ As you might imagine, not only is this expensive but it introduces all kinds of 
 </ul>
 
 ```notes
-VMs definitely have their place, but...
+VMs definitely have their place.
 
-What if we used Docker and containerized our apps/services?
+::press the arrow key::
+
+...but what if we used Docker and containerized our apps/services?
 ```
+
 ---
 # These look like containers.
 ![](./images/what-are-we-working-with.png)
@@ -403,6 +407,10 @@ export default Invert
 # Docker images
 ## Your ticket to exploration
 
+```notes
+Let's use the freely available Kitematic app to explore images that are on Docker Hub.
+```
+
 ---
 <Image src='./images/kitematic.png' />
 
@@ -418,7 +426,7 @@ Instead of worry about defining a Dockerfile for our MongoDB, let's use an exist
 ---
 export default Invert
 
-# How do I use this image?
+# How would I use an image?
 
 ```notes
 Let's take a look at how this appears on Docker Hub...
