@@ -293,7 +293,7 @@ Hang in there. You'll see why shortly.
     {lines: [3], notes: ""},
     {range: [4,6], notes: ""},
     {range: [7,9], notes: ""},
-    {range: [10,11], notes: "We need to map the local Mongo server port to Docker"},
+    {range: [10,11], notes: ""},
     {lines: [11], notes: ""},
   ]}
 />
@@ -350,13 +350,9 @@ Hang in there. You'll see why shortly.
 />
 
 ---
-# Bring everything together
-![](./images/mickey-mouse-fantasia.png)
-
----
 <CodeSurfer
   code={require("raw-loader!./snippets/docker-compose.snippet")} 
-  title="Encore! Encore!"
+  title="Behold!"
   showNumbers
   steps={[
     {}, // First step should be an overview of the snippet
@@ -379,6 +375,10 @@ Tada! Let's take a look at our docker-compose file one last time before issuing 
 </ul>
 
 ---
+# Bring everything together
+![](./images/mickey-mouse-fantasia.png)
+
+---
 # Let's go
 `$ npm run docker:up`
 
@@ -387,17 +387,6 @@ Tada! Let's take a look at our docker-compose file one last time before issuing 
 ---
 # Demo
 export default Invert
-
----
-# We're done
-
-<ul style={{listStyle: 'none', textAlign: 'left', margin: 0, padding: 0}}>
-  <li><s>Initial setup of MongoDB for Docker</s></li>
-  <li><s>Initial setup of our back-end server for Docker</s></li>
-  <li><s>Initial setup of our front-end applications for Docker</s></li>
-  <li><s>Bring everything together</s></li>
-  <li><s>Explore GraphQL</s></li>
-</ul>
 
 ---
 # Thank you
