@@ -11,19 +11,26 @@ Please go to [GitHub Developer Settings](https://github.com/settings/developers)
 
 Be sure to note the `Client ID` and `Client Secret` values.
 
-Each directory contains a `sample.env` file for reference. Simply copy those values into a new `.env` file with appropriate settings which include:
+Each directory contains a `.env` file for reference. Be sure to update them with appropriate settings for your environment which include:
 + GitHub client ID
 + GitHub client secret
 + OPTIONAL: MongoDB connection string
     - It is fine to use the default connection string of `mongodb://mongodb:27017/photoshare` - by default it will create a new database for you on the `graphql-mongodb` service.
 
-Before starting this project, you will need to create two `.env` files - one in `./photo-share-api` and one in `./photo-share-client`. 
+Before starting this project, you will need to update the following `.env` files:
++ `nextjs-with-apollo/.env`
++ `photo-share-api/.env`
++ `photo-share-client/.env`
 
-Please copy `photo-share-api/sample.env` to `photo-share-api/.env` - replacing the placeholder values with your own settings.
+Once you have properly created and configured your `.env` files, be sure to edit `.gitignore` and uncomment the lines:
+```sh
+...
+# nextjs-with-apollo/.env
+# photo-share-api/.env
+# photo-share-client/.env
+```
 
-Please copy `photo-share-client/sample.env` to `photo-share-client/.env` - replacing the placeholder values with your own settings.
-
-Once you have properly created and configured your `.env` files, you can spin up the project by running:
+Once this is complete, you can spin up the project by running:
 
     $ npm start
 
