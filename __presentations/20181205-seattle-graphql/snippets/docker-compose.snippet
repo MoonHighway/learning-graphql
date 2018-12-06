@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  'graphql-nextjs':
+    build:
+      context: ./nextjs-with-apollo
+      dockerfile: ./Dockerfile.dev
+    container_name: 'graphql-nextjs'
+    # If you want to take advantage of hot reloading in NextJS:
+    command: ./node_modules/.bin/next
+    # If you DO NOT WANT to take advantage of hot reloading in NextJS:
+    # command: ./node_modules/.bin/next start
+    ports:
+      - "3000:3000"
+    # If you want local changes to update in the Docker container, you can pass through project files like this:
+    volumes:
+      - ./nextjs-with-apollo:/usr/src
+    depends_on:
+      - graphql-api
+
+  'graphql-web':
+    build:
+      context: ./photo-share-client
+      dockerfile: ./Dockerfile.dev
+    container_name: 'graphql-web'
+    command: ./node_modules/.bin/react-scripts start
+    ports:
+      - "3001:3000"
+    # If you want local changes to update in the Docker container, you can pass through project files like this:
+    volumes:
+      - ./photo-share-client:/usr/src
+    depends_on:
+      - graphql-api
+
+  'graphql-api':
+    build:
+      context: ./photo-share-api
+      dockerfile: ./Dockerfile.dev
+    container_name: 'graphql-api'
+    # This service will not start until either the mongodb service is available OR thirty seconds have elapsed
+    command: sh -c './scripts/wait-for.sh --timeout=30 mongodb:27017 && ./node_modules/.bin/nodemon -e js,json,graphql'
+    ports:
+      - "4000:4000"
+      - "9229:9229"
+    # If you want local changes to update the Docker container, you can pass through project files like this:
+    volumes:
+      - ./photo-share-api:/usr/src
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    container_name: "graphql-mongodb"
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    # If you want to persist MongoDB data after a container has been stopped/deleted, uncomment the volumes section
+    # volumes:
+    #   - ./photo-share-api/.docker/mongodb/data/db:/data/db
+    ports:
+      - "27017:27017"

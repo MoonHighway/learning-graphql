@@ -1,0 +1,11 @@
+  mongodb:
+    image: mongo
+    container_name: "graphql-mongodb"
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    # If you want to persist MongoDB data...
+    # volumes:
+    #   - ./photo-share-api/.docker/mongodb/data/db:/data/db
+    ports:
+      - "27017:27017"

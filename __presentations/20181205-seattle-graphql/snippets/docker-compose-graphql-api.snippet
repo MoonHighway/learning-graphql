@@ -1,0 +1,17 @@
+  'graphql-api':
+    build:
+      context: ./photo-share-api
+      dockerfile: ./Dockerfile.dev
+    container_name: 'graphql-api'
+    # This service will not start until either the mongodb service is 
+    # available OR thirty seconds have elapsed
+    command: sh -c './scripts/wait-for.sh --timeout=30 mongodb:27017 \ 
+      && ./node_modules/.bin/nodemon -e js,json,graphql'
+    ports:
+      - "4000:4000"
+      - "9229:9229"
+    # If you want local changes to update the Docker container...
+    volumes:
+      - ./photo-share-api:/usr/src
+    depends_on:
+      - mongodb

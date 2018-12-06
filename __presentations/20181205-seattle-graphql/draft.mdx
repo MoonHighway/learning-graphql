@@ -1,0 +1,620 @@
+import { Head, Appear, Image } from 'mdx-deck'  // https://github.com/jxnblk/mdx-deck
+import { Invert, Split } from 'mdx-deck/layouts'
+import { CodeSurfer } from 'mdx-deck-code-surfer' // https://elijahmanor.com/code-surfer/
+
+# Set up your own GraphQL sandbox using Docker
+<Head>
+  <title>Set up your own GraphQL sandbox using Docker</title>
+</Head>
+
+Rob Brennan
+
+@therobbrennan | [rob@therobbrennan.com](mailto:rob@therobbrennan.com)
+
+---
+# Introduction
+
+```notes
+Who am I? Let's see! 
+```
+
+---
+export default Invert
+
+<Image src='images/genui-logo.png' size='60%' />
+
+```notes
+Quick hat tip to GenUI
+```
+
+---
+<Image src='images/rob-brennan.jpg' />
+
+```notes
+Drummer for Wyatt Olney & The Wreckage
+```
+
+---
+export default Split
+
+![](images/woatw-showbox.jpg)
+
+![](images/woatw-poster-20181206.jpg)
+
+[https://www.woatw.com](https://www.woatw.com)
+
+```notes
+Shout out for the benefit event for Life Center Northwest
+
+Also mention that they will be playing our music on their float in this year's Rose Bowl parade
+```
+
+---
+# Background
+
+---
+# Let's get started
+Example code and this presentation deck is available at [https://github.com/TheRobBrennan/learning-graphql](https://github.com/TheRobBrennan/learning-graphql)
+
+```notes
+Before diving in, there are two books that I strongly recommend...
+```
+
+---
+# Learning GraphQL
+
+[![](https://raw.githubusercontent.com/MoonHighway/learning-graphql/master/learning-graphql.jpg)](https://www.amazon.com/Learning-GraphQL-Declarative-Fetching-Modern/dp/1492030716)
+
+---
+# The Road to GraphQL
+
+[![](https://www.robinwieruch.de/img/posts/the-road-to-graphql-book/banner_1024.jpg)](https://www.robinwieruch.de/the-road-to-graphql-book/)
+
+---
+# What will we need?
+
+<ul style={{listStyle: 'none'}}>
+  <Appear>
+    <li>A back-end MongoDB database server</li>
+    <li>A back-end server for GraphQL and other APIs</li>
+    <li>A simple web application to use our GraphQL API</li>
+  </Appear>
+</ul>
+
+```notes
+For this demo, there are three things that we are going to need.
+```
+---
+# What would be a bonus?
+
+<ul style={{listStyle: 'none'}}>
+  <Appear>
+    <li>Lightweight tools to explore our GraphQL API</li>
+    <li>Multiple front-end applications using our GraphQL</li>
+    <li>The ability to use GitHub to sign in and out of a sample application</li>
+  </Appear>
+</ul>
+
+```notes
+Let's consider three things that might be nice to have.
+```
+---
+# Good news!
+## We can do it all.
+
+---
+# Our goal
+<ul style={{listStyle: 'none'}}>
+  <Appear>
+    <li>Create an easy to spin up environment that can be destroyed & recreated as desired</li>
+  </Appear>
+</ul>
+
+```notes
+We have one goal.
+```
+---
+# What are we working with?
+![](./images/what-are-we-working-with.png)
+
+---
+# Virtual machines
+"Virtual machines (VMs) are an abstraction of physical hardware turning one server into many servers. 
+
+Each VM includes a full copy of an operating system, the application, necessary binaries and libraries - taking up tens of GBs. VMs can also be slow to boot."
+
+[https://www.docker.com/resources/what-container](https://www.docker.com/resources/what-container)
+
+```notes
+One approach might be to use virtual machines for our application.
+```
+
+---
+<Image src='./images/virtual-machines-each-with-an-individual-app.png' size='50%' />
+
+```notes
+We could have multiple machines or virtual machines that run these apps/services individually...
+
+How might we scale this? We could add more virtual machines if our back-end server is being hammered; ditto for other services.
+
+As you might imagine, not only is this expensive but it introduces all kinds of room for error. One person might be working on the front-end app and it's good. Someone else is working on the back-end. While "it works fine for me" is true in both cases, something is slightly off in production and bam - the project is broken, and both people see working code.
+```
+
+---
+# VMs have their place
+
+<ul style={{listStyle: 'none'}}>
+  <Appear>
+    <li>...but what if we used Docker and containerized our apps/services?</li>
+  </Appear>
+</ul>
+
+```notes
+VMs definitely have their place.
+
+::press the arrow key::
+
+...but what if we used Docker and containerized our apps/services?
+```
+
+---
+# These look like containers.
+![](./images/what-are-we-working-with.png)
+
+```notes
+Aha! We have four discrete ideas for each app/service we want to work with.
+
+With Docker, we can have our apps/services existing as separate containers (instances of an image - which is merely a recipe for creating the app or service)
+```
+---
+# Docker: Container
+"A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings."
+
+[https://www.docker.com/resources/what-container](https://www.docker.com/resources/what-container)
+
+```notes
+Imagine a case where we have several apps - one that may be a NodeJS app running under Node.js v8.x, a Node.js v10.x app, a legacy lightweight service that might be running on an unsupported version of Node.js v4.x...We're not reliant upon the host to have a specific version of Node.js installed. Each container is built and contains everything it needs to run as a standalone process...or a case where our architecture is ready to support scaling such that we have two containers for each front-end app, three containers for the back-end API, and maybe five MongoDB services in a cluster.
+
+If we thought of each container as AppA, AppB, AppC, AppD, etc...
+
+```
+---
+<Image src='./images/docker-containerized-applictions.png' size='60%' />
+
+---
+export default Split
+
+![](./images/docker-for-developers.png)
+
+[READ: Get started](https://www.docker.com/get-started)
+
+```notes
+That's a quick overview of Docker. For more information, you can check out this link.
+
+Now that we have an understanding of how we might use Docker, let's see how this will apply to our current project.
+```
+---
+# Project checklist
+
+<ul style={{listStyle: 'none', textAlign: 'left', margin: 0, padding: 0}}>
+  <li>Initial setup of MongoDB for Docker</li>
+  <li>Initial setup of our back-end server for Docker</li>
+  <li>Initial setup of our front-end applications for Docker</li>
+  <li>Bring everything together</li>
+  <li>Explore GraphQL</li>
+</ul>
+
+---
+# Initial MongoDB setup
+
+```notes
+Let's look at our project structure...there's nothing in here about MongoDB? There must be a reason...stay tuned.
+```
+
+---
+# Project checklist
+
+<ul style={{listStyle: 'none', textAlign: 'left', margin: 0, padding: 0}}>
+  <li><s>Initial setup of MongoDB for Docker</s></li>
+  <li>Initial setup of our back-end server for Docker</li>
+  <li>Initial setup of our front-end applications for Docker</li>
+  <li>Bring everything together</li>
+  <li>Explore GraphQL</li>
+</ul>
+
+---
+# Initial back-end server setup
+Our back-end server is located at `./photo-share-api`
+
+---
+<CodeSurfer
+  code={require("raw-loader!./snippets/dockerfile-photo-share-api.snippet")} 
+  title="Dockerfile for photo-share-api"
+  showNumbers
+  steps={[
+    {}, // First step should be an overview of the snippet
+    {lines: [1], notes: "Specify the base Node.js image"},
+    {range: [6,7], notes: "Create the working directory on our process"},
+    {range: [9,11], notes: "Copy and install our dependencies just like we would locally"},
+    {range: [13,14], notes: "Copy our application code over"},
+    {lines: [15], notes: "What is this? It seems a little...unusual."},
+    {range: [17,19], notes: "We need to define ports for Docker to access"},
+    {range: [21,22], notes: "This is the command to start our back-end server"},
+    {}
+  ]}
+/>
+
+```notes
+Walkthrough the following:
++ FROM
++ Create the app on the base image
++ Install dependencies on the image
++ Copy our application code
++ What is this wait for?
++ Expose ports
++ Start the process
++ Zoom out
+
+Cross the item off our checklist.
+```
+---
+# Project checklist
+
+<ul style={{listStyle: 'none', textAlign: 'left', margin: 0, padding: 0}}>
+  <li><s>Initial setup of MongoDB for Docker</s></li>
+  <li><s>Initial setup of our back-end server for Docker</s></li>
+  <li>Initial setup of our front-end applications for Docker</li>
+  <li>Bring everything together</li>
+  <li>Explore GraphQL</li>
+</ul>
+
+---
+# Initial front-end application setup
+This project contains two front-end applications
+
+`photo-share-client` and `nextjs-with-apollo`
+
+```notes
+photo-share-client is the project created as part of following along with the Learning GraphQL book.
+
+nextjs-with-apollo is the project I created to explore NextJS and GraphQL.
+```
+
+---
+# photo-share-client
+
+---
+<CodeSurfer
+  code={require("raw-loader!./snippets/dockerfile-photo-share-client.snippet")} 
+  title="Dockerfile for photo-share-client"
+  showNumbers
+  steps={[
+    {}, // First step should be an overview of the snippet
+    {lines: [1], notes: "Specify the base Node.js image"},
+    {range: [6,7], notes: "Create the working directory on our process"},
+    {range: [9,11], notes: "Copy and install our dependencies just like we would locally"},
+    {range: [13,14], notes: "Copy our application code over"},
+    {range: [16,17], notes: "We need to define ports for Docker to access"},
+    {range: [19,20], notes: "This is the command to start our React application"},
+    {}
+  ]}
+/>
+
+```notes
+Walkthrough the following:
++ FROM
++ Create the app on the base image
++ Install dependencies on the image
++ Copy our application code
++ Expose ports
++ Start the process
++ Zoom out
+
+Let's do a similar thing with the other front-end application we have...
+```
+
+---
+# nextjs-with-apollo
+
+---
+<CodeSurfer
+  code={require("raw-loader!./snippets/dockerfile-nextjs-with-apollo.snippet")} 
+  title="Dockerfile for nextjs-with-apollo"
+  showNumbers
+  steps={[
+    {}, // First step should be an overview of the snippet
+    {lines: [1], notes: "Specify the base Node.js image"},
+    {range: [5,6], notes: "Create the working directory on our process"},
+    {range: [8,10], notes: "Copy and install our dependencies just like we would locally"},
+    {range: [12,13], notes: "Copy our application code over"},
+    {range: [15,16], notes: "Build our NextJS app"},
+    {range: [18,19], notes: "We need to define ports for Docker to access"},
+    {range: [21,22], notes: "This is the command to start our NextJS application in development mode *"},
+    {}
+  ]}
+/>
+
+```notes
+Walkthrough the following:
++ FROM
++ Create the app on the base image
++ Install dependencies on the image
++ Copy our application code
++ Build the application
++ Expose ports
++ Start the process
++ Zoom out
+
+Wait. We built the application, and we're still starting it in development mode?
+
+Hang in there. You'll see why shortly.
+
+Cross the item off our checklist.
+```
+
+---
+# Project checklist
+
+<ul style={{listStyle: 'none', textAlign: 'left', margin: 0, padding: 0}}>
+  <li><s>Initial setup of MongoDB for Docker</s></li>
+  <li><s>Initial setup of our back-end server for Docker</s></li>
+  <li><s>Initial setup of our front-end applications for Docker</s></li>
+  <li>Bring everything together</li>
+  <li>Explore GraphQL</li>
+</ul>
+
+---
+# Docker Compose
+
+---
+<CodeSurfer
+  code={require("raw-loader!./snippets/docker-compose.snippet")} 
+  title="Docker Compose"
+  showNumbers
+  steps={[
+    {}, // First step should be an overview of the snippet
+  ]}
+/>
+
+```notes
+This slide is just an overview of the file. 
+
+Let's dive in and take a look at specific app/service definitions.
+```
+
+---
+<CodeSurfer
+  code={require("raw-loader!./snippets/docker-compose-mongodb.snippet")} 
+  title="Docker Compose: MongoDB"
+  showNumbers
+  steps={[
+    {}, // First step should be an overview of the snippet
+    {lines: [1], notes: ""},
+    {lines: [2], notes: ""},
+  ]}
+/>
+
+```notes
+Walkthrough the following:
++ Service name
++ Image
+
+Hold on. Let's talk about Docker images for a second.
+```
+
+---
+export default Invert
+
+# Docker images
+## Your ticket to exploration
+
+```notes
+Let's use the freely available Kitematic app to explore images that are on Docker Hub.
+```
+
+---
+<Image src='./images/kitematic.png' />
+
+```notes
+Whoa. Pretty freakin' cool, huh?
+
+Instead of worrying about defining a Dockerfile for our MongoDB, let's use an existing image instead...
+```
+
+---
+<Image src='./images/kitematic-mongo.png' />
+
+---
+export default Invert
+
+# How would I use an image?
+
+```notes
+Let's take a look at how this appears on Docker Hub...
+```
+
+---
+<Image src='./images/docker-hub-mongo-00.png' />
+
+```notes
+Ok...
+```
+
+---
+<Image src='./images/docker-hub-mongo-01.png' />
+
+```notes
+Getting warmer...
+```
+
+---
+<Image src='./images/docker-hub-mongo-02.png' />
+
+```notes
+Oh look!! This looks like what we have in our docker-compose.yml file.
+```
+
+---
+<CodeSurfer
+  code={require("raw-loader!./snippets/docker-compose-mongodb.snippet")} 
+  title="Docker Compose: MongoDB"
+  showNumbers
+  steps={[
+    {lines: [2], notes: ""},
+    {lines: [3], notes: ""},
+    {range: [4,6], notes: ""},
+    {range: [7,9], notes: ""},
+    {range: [10,11], notes: ""},
+  ]}
+/>
+
+```notes
+Walkthrough the following:
++ Image
++ Container name
++ Environment variables
++ OPTIONAL: Persist data to the project folder
++ Port mapping
+
+Let's look at our back-end server.
+```
+
+---
+<CodeSurfer
+  code={require("raw-loader!./snippets/docker-compose-graphql-api.snippet")} 
+  title="Docker Compose: Our back-end server"
+  showNumbers
+  steps={[
+    {}, // First step should be an overview of the snippet
+    {lines: [1], notes: ""},
+    {range: [2,4], notes: ""},
+    {lines: [5], notes: ""},
+    {range: [6,9], notes: ""},
+    {range: [10,12], notes: ""},
+    {range: [13,15], notes: ""},
+    {range: [16,17], notes: ""},
+  ]}
+/>
+
+```notes
+Walkthrough the following:
++ Service name
++ Build
++ Container name
++ Command to start the server
++ Ports
++ Mapping local code changes to the process
++ Look! This depends on MongoDB being up and running
+
+Let's look at the first front-end application - the example from the book Learning GraphQL.
+```
+
+---
+<CodeSurfer
+  code={require("raw-loader!./snippets/docker-compose-graphql-web.snippet")} 
+  title="Docker Compose: The original React app"
+  showNumbers
+  steps={[
+    {}, // First step should be an overview of the snippet
+    {lines: [1], notes: ""},
+    {range: [2,4], notes: ""},
+    {lines: [5], notes: ""},
+    {lines: [6], notes: ""},
+    {range: [7,8], notes: ""},
+    {range: [9,11], notes: ""},
+    {range: [12,13], notes: ""},
+  ]}
+/>
+
+```notes
+Walkthrough the following:
++ Service name
++ Build
++ Container name
++ Command to start the server
++ Ports
++ Mapping local code changes to the process
++ Look! This depends on our back-end server being up and running
+
+Let's look at the second front-end application - an example project using NextJS with Apollo.
+```
+
+---
+<CodeSurfer
+  code={require("raw-loader!./snippets/docker-compose-graphql-nextjs.snippet")} 
+  title="Docker Compose: NextJS with Apollo"
+  showNumbers
+  steps={[
+    {}, // First step should be an overview of the snippet
+    {lines: [1], notes: ""},
+    {range: [2,4], notes: ""},
+    {lines: [5], notes: ""},
+    {range: [6,9], notes: ""},
+    {range: [10,11], notes: ""},
+    {range: [12,14], notes: ""},
+    {range: [15,16], notes: ""},
+  ]}
+/>
+
+```notes
+Walkthrough the following:
++ Service name
++ Build
++ Container name
++ Command to start the server
+  - Discuss why we have two options
++ Ports
++ Mapping local code changes to the process
++ Look! This depends on our back-end server being up and running
+
+Our docker-compose.yml file will look like...
+```
+
+---
+<CodeSurfer
+  code={require("raw-loader!./snippets/docker-compose.snippet")} 
+  title="Behold!"
+  showNumbers
+  steps={[
+    {}, // First step should be an overview of the snippet
+  ]}
+/>
+
+```notes
+Tada! Let's take a look at our docker-compose file one last time before issuing the magic command...
+```
+
+---
+# Project checklist
+
+<ul style={{listStyle: 'none', textAlign: 'left', margin: 0, padding: 0}}>
+  <li><s>Initial setup of MongoDB for Docker</s></li>
+  <li><s>Initial setup of our back-end server for Docker</s></li>
+  <li><s>Initial setup of our front-end applications for Docker</s></li>
+  <li>Bring everything together</li>
+  <li>Explore GraphQL</li>
+</ul>
+
+---
+# Bring everything together
+![](./images/mickey-mouse-fantasia.png)
+
+---
+# Let's go
+`$ npm run docker:up`
+
+(This will take a few minutes, so let's switch to the demo)
+
+---
+# Demo
+export default Invert
+
+---
+<Image src='./images/purple-platypus.jpg' />
+
+---
+# Thank you
+
+Rob Brennan | [rob@therobbrennan.com](mailto:rob@therobbrennan.com)
+
+[https://github.com/TheRobBrennan/learning-graphql](https://github.com/TheRobBrennan/learning-graphql)
