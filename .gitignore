@@ -1,13 +1,14 @@
 node_modules
 
+# Modules should be installed on Docker containers; ignore local package-lock.json files
+package-lock.json
+nextjs-with-apollo/package-lock.json
+photo-share-api/package-lock.json
+photo-share-client/package-lock.json
+
 # Docker and related assets
 photo-share-api/.docker
 photo-share-api/assets
-
-# Environment variables
-nextjs-with-apollo/.env
-photo-share-api/.env
-photo-share-client/.env
 
 # Build
 nextjs-with-apollo/.next
