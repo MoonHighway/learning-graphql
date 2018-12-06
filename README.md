@@ -36,27 +36,8 @@ Once this is complete, you can spin up the project by running:
 
 This will create the following Docker containers:
 + `graphql-nextjs` - A simple [NextJS](https://nextjs.org) web application to work with our GraphQL API
-    - By default, this project **WILL** hot reload changes made to this app in the Docker container. 
-        + There is an issue where hot module loading may prematurely dispose of NextJS pages and cause unexpected behavior **IN DEVELOPMENT MODE ONLY**. 
-        + If you **DO NOT WANT** hot reloading, make sure the following commands are updated for the `graphql-nextjs` service in the `./docker-compose.yml` file:
-    ```sh
-    # If you want to take advantage of hot reloading in NextJS:
-    # command: ./node_modules/.bin/next
-
-    # If you DO NOT WANT to take advantage of hot reloading in NextJS:
-    command: ./node_modules/.bin/next start
-
-    # If you want local changes to update in the Docker container, you can pass through project files like this:
-    # volumes:
-    #   - ./nextjs-with-apollo:/usr/src
-
-    ```
+    - By default, this project **WILL NOT** hot reload changes made to this app in the Docker container. 
 + `graphql-web` - A simple [React](https://reactjs.org) web application to work with our GraphQL API
-    - By default, this project **WILL** hot reload changes made to this app in the Docker container. If you **DO NOT WANT** hot reloading, comment out the following lines in the `./docker-compose.yml` file:
-    ```sh
-    volumes:
-      - ./photo-share-client:/usr/src
-    ```
 + `graphql-api` - The [GraphQL](https://graphql.org) server powered by [Express](https://expressjs.com)
     - NOTE: This is an example for educational purposes and should be hardened before deploying to production.
 + `graphql-mongodb` - A [MongoDB](https://www.mongodb.com) server
