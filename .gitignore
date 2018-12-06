@@ -1,5 +1,11 @@
 node_modules
 
+# Environment variables
+# TODO: Uncomment these once you have added your secrets/environment variables
+# nextjs-with-apollo/.env
+# photo-share-api/.env
+# photo-share-client/.env
+
 # Modules should be installed on Docker containers; ignore local package-lock.json files
 package-lock.json
 nextjs-with-apollo/package-lock.json
