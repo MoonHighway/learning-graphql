@@ -30,6 +30,13 @@ Once you have properly created and configured your `.env` files, be sure to edit
 # photo-share-client/.env
 ```
 
+Also, be sure that you run the following commands so that git no longer tracks those files:
+```sh
+$ git rm --cached nextjs-with-apollo/.env
+$ git rm --cached photo-share-api/.env
+$ git rm --cached photo-share-client/.env
+```
+
 Once this is complete, you can spin up the project by running:
 
     $ npm start

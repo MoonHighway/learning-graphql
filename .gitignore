@@ -1,7 +1,12 @@
 node_modules
 
 # Environment variables
-# TODO: Uncomment these once you have added your secrets/environment variables
+# ##
+# TODO: Uncomment these once you have added your secrets/environment variables and then manually remove them from git tracking with:
+#   $ git rm --cached nextjs-with-apollo/.env
+#   $ git rm --cached photo-share-api/.env
+#   $ git rm --cached photo-share-client/.env
+# ##
 # nextjs-with-apollo/.env
 # photo-share-api/.env
 # photo-share-client/.env
