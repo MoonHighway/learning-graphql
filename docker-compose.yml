@@ -6,15 +6,9 @@ services:
       context: ./nextjs-with-apollo
       dockerfile: ./Dockerfile.dev
     container_name: 'graphql-nextjs'
-    # If you want to take advantage of hot reloading in NextJS:
-    command: ./node_modules/.bin/next
-    # If you DO NOT WANT to take advantage of hot reloading in NextJS:
-    # command: ./node_modules/.bin/next start
+    command: ./node_modules/.bin/next start
     ports:
       - "3000:3000"
-    # If you want local changes to update in the Docker container, you can pass through project files like this:
-    volumes:
-      - ./nextjs-with-apollo:/usr/src
     depends_on:
       - graphql-api
 
@@ -26,9 +20,6 @@ services:
     command: ./node_modules/.bin/react-scripts start
     ports:
       - "3001:3000"
-    # If you want local changes to update in the Docker container, you can pass through project files like this:
-    volumes:
-      - ./photo-share-client:/usr/src
     depends_on:
       - graphql-api
 
@@ -42,9 +33,6 @@ services:
     ports:
       - "4000:4000"
       - "9229:9229"
-    # If you want local changes to update the Docker container, you can pass through project files like this:
-    volumes:
-      - ./photo-share-api:/usr/src
     depends_on:
       - mongodb
 
