@@ -19,10 +19,10 @@ const CurrentUser = ({ name, avatar, logout }) =>
 
 const Me = ({ logout, requestCode, signingIn }) =>
     <Query query={ROOT_QUERY} fetchPolicy="cache-only">
-        {({ loading, data }) => data.me ?
+        {({ loading, data }) =>loading ?
+                <p>loading... </p>: 
+                data.me ?
             <CurrentUser {...data.me} logout={logout} /> :
-            loading ?
-                <p>loading... </p> :
                 <button onClick={requestCode}
                     disabled={signingIn}>
                     Sign In with Github
