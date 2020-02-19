@@ -1,57 +1,221 @@
 scalar DateTime
 
+"""
+A user who has been authorized by GitHub at least once
+"""
 type User {
+    """
+    The user's unique GitHub login
+    """
     githubLogin: ID!
+    """
+    The user's first and last name
+    """
     name: String
+    """
+    A url for the user's GitHub profile photo
+    """
     avatar: String
+    """
+    All of the photos posted by this user
+    """
     postedPhotos: [Photo!]!
+    """
+    All of the photos in which this user appears
+    """
     inPhotos: [Photo!]!
 }
 
+"""
+The details of a photo
+"""
 type Photo {
+    """
+    A photo's unique id
+    """
     id: ID!
+    """
+    A photo's name
+    """
     name: String!
+    """
+    A photo's url
+    """
     url: String!
+    """
+    (optional) A photo's description
+    """
     description: String
+    """
+    A photo's category
+    """
     category: PhotoCategory!
+    """
+    A user that posted the photo
+    """
     postedBy: User!
+    """
+    The list of the user's tagged in the photo
+    """
     taggedUsers: [User!]!
+    """
+    The time the photo was created
+    """
     created: DateTime!
 }
 
+"""
+A category enum of photos
+"""
 enum PhotoCategory {
+    """
+    describe a selfie photo
+    """
     SELFIE
+    """
+    describe a portrait photo
+    """
     PORTRAIT
+    """
+    describe an action photo
+    """
     ACTION
+    """
+    describe a landscape photo
+    """
     LANDSCAPE
+    """
+    describe a graphic photo
+    """
     GRAPHIC
 }
 
+"""
+The input sent with the postPhoto Mutation
+"""
 input PostPhotoInput {
+    """
+    The name of the new photo
+    """
     name: String!
+    """
+    (optional) The category that defines the photo (default = PORTRAIT)
+    """
     category: PhotoCategory = PORTRAIT
+    """
+    (optional) A brief description of the photo
+    """
     description: String
 }
 
+"""
+A Custom type for Auth Object
+"""
 type AuthPayload {
+    """
+    A jwt token returned after a successful auth
+    """
     token: String!
+    """
+    A user that was authenticated
+    """
     user: User!
 }
 
+"""
+A root type showing all the queries (READ)
+"""
 type Query {
+    """
+    A query that return the authenticated user from a token
+    """
     me: User
+    """
+    A query that returns the total number of photos
+    """
     totalPhotos: Int!
+    """
+    A query that returns all the photos
+    """
     allPhotos: [Photo!]!
-    Photo(id: ID!): Photo
+    """
+    A query that returns a single photo based on its ID
+    """
+    Photo(
+        """
+        the id of the photo to return
+        """
+        id: ID!
+    ): Photo
+    """
+    A query that returns the total number of users
+    """
     totalUsers: Int!
+    """
+    A query that returns all the users
+    """
     allUsers: [User!]!
+    """
+    A query that logs a user in
+    """
     User(login: ID!): User
 }
 
+"""
+A root type showing all the mutations (CREATE, UPDATE and DELETE)
+"""
 type Mutation {
-    postPhoto(input: PostPhotoInput!): Photo!
-    tagPhoto(githubLogin:ID! photoID:ID!): Photo!
-    githubAuth(code: String!): AuthPayload!
-    addFakeUsers(count: Int=1): [User!]!
-    fakeUserAuth(githubLogin: ID!): AuthPayload!
+    """
+    A mutation to post a new photo
+    """
+    postPhoto(
+        """
+        The input sent with the postPhoto Mutation
+        """
+        input: PostPhotoInput!
+    ): Photo!
+
+    """
+    A mutation to tag a photo with a user
+    """
+    tagPhoto(
+        """
+        The user's unique GitHub login
+        """
+        githubLogin: ID!
+        """
+        The ID of the photo
+        """
+        photoID: ID!
+    ): Photo!
+
+    """
+    A mutation to Authenticate a Github user
+    """
+    githubAuth(
+        """
+        A password or GitHub token
+        """
+        code: String!
+    ): AuthPayload!
+
+    """
+    A mutation to add fake(mocked) users
+    """
+    addFakeUsers(
+        """
+        the count of user to be added (defaults = 1)
+        """
+        count: Int = 1
+    ): [User!]!
+
+    """
+    A mutation to authenticate a fake user
+    """
+    fakeUserAuth(
+        """
+        The user's unique GitHub login
+        """
+        githubLogin: ID!
+    ): AuthPayload!
 }
