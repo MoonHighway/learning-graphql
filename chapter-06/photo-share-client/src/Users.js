@@ -17,7 +17,7 @@ const Users = () =>
     <Query query={ROOT_QUERY} fetchPolicy="cache-and-network">
         {({ data, loading, refetch }) => loading ?
             <p>loading users...</p> :
-            <UserList count={data.totalUsers} 
+            <UserList count={data?.totalUsers} 
                 users={data.allUsers} 
                 refetch={refetch} />
         }
