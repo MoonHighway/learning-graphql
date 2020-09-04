@@ -14,7 +14,7 @@
     "express": "4.16.3",
     "graphql": "0.13.2",
     "graphql-playground-middleware-express": "1.7.1",
-    "mongodb": "3.1.0",
+    "mongodb": "3.6.1",
     "node-fetch": "2.1.2"
   },
   "devDependencies": {
