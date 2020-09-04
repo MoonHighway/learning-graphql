@@ -16,7 +16,7 @@
     "graphql-depth-limit": "1.1.0",
     "graphql-playground-middleware-express": "1.7.1",
     "graphql-validation-complexity": "0.2.3",
-    "mongodb": "3.1.0",
+    "mongodb": "3.6.1",
     "node-fetch": "2.1.2"
   },
   "devDependencies": {
