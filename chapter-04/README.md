@@ -10,6 +10,6 @@ Resource Links
 
 ### Chapter Examples
 * [City to City Through Types - Launchpad](https://launchpad.graphql.com/lk3qk3zq7q): Through types sample on Apollo GraphQL's Launchpad
-* [Union Types - Launchpad](https://launchpad.graphql.com/r94qxj5q4n): Union types sample on Launchpad
-* [Interfaces - Launchpad](https://launchpad.graphql.com/j8r375km3p): Interfaces sample on Launchpad
+* [Union Types - Apollo docs](https://www.apollographql.com/docs/apollo-server/schema/unions-interfaces/#union-type): Union types sample on Apollo
+* [Interfaces - Apollo docs](https://www.apollographql.com/docs/apollo-server/schema/unions-interfaces/#interface-type): Interfaces sample on Apollo
 
