@@ -1,0 +1,226 @@
+https://snowtooth.moonhighway.com/
+
+query lifts {
+  allLifts {
+    name
+    status
+  }
+}
+
+query trails {
+  allTrails {
+    name
+    difficulty
+  }
+}
+
+query liftsAndTrails {
+    liftCount(status: OPEN)
+    allLifts {
+        name
+        status
+    }
+    allTrails {
+        name
+        difficulty
+    }
+}
+
+query liftsAndTrails {
+    open: liftCount(status: OPEN)
+    chairlifts: allLifts {
+        liftName: name
+        status
+    }
+    skiSlopes: allTrails {
+        name
+        difficulty
+    }
+}
+
+query closedLifts {
+    allLifts(status: CLOSED) {
+        name
+        status
+    }
+}
+
+query jazzCatStatus {
+    Lift(id: "jazz-cat") {
+        name
+        status
+        night
+        elevationGain
+    }
+}
+
+query trailsAccessedByJazzCat {
+    Lift(id: "jazz-cat") {
+        capacity
+        trailAccess {
+            name
+            difficulty
+        }
+    }
+}
+
+query liftAccessToTrail {
+    Trail(id: "dance-fight") {
+        groomed
+        accessedByLifts {
+            name
+            capacity
+        }
+    }
+}
+
+query {
+    Lift(id: "jazz-cat") {
+        name
+        status
+        capacity
+        night
+        elevationGain
+        trailAccess {
+            name
+            difficulty
+        }
+    }
+    Trail(id: "river-run") {
+        name
+        difficulty
+        accessedByLifts {
+            name
+            status
+            capacity
+            night
+            elevationGain
+        }
+    }
+}
+
+fragment liftInfo on Lift {
+    name
+    status
+    capacity
+    night
+    elevationGain
+}
+
+query {
+    Lift(id: "jazz-cat") {
+        ...liftInfo
+        trailAccess {
+            name
+            difficulty
+        }
+    }
+    Trail(id: "river-run") {
+        name
+        difficulty
+        accessedByLifts {
+            ...liftInfo
+        }
+    }
+}
+
+fragment trailInfo on Trail {
+    name
+    difficulty
+    accessedByLifts {
+        ...liftInfo
+    }
+}
+
+query {
+    Lift(id: "jazz-cat") {
+        ...liftInfo
+        trailAccess {
+            ...trailInfo
+        }
+    }
+    Trail(id: "river-run") {
+        ...trailInfo
+        groomed
+        trees
+        night
+        }
+    }
+}
+
+query {
+    allTrails {
+        ...trailStatus
+        ...trailDetails
+    }
+}
+
+fragment trailStatus on Trail {
+    name
+    status
+}
+
+fragment trailDetails on Trail {
+    groomed
+    trees
+    night
+}
+
+mutation closeLift {
+    setLiftStatus(id: "jazz-cat" status: CLOSED) {
+        name
+        status
+    }
+}
+
+subscription {
+    liftStatusChange {
+        name
+        capacity
+        status
+    }
+}
+
+query {
+    __schema {
+        types {
+            name
+            description
+        }
+    }
+}
+
+// Introspection
+query liftDetails {
+    __type(name:"Lift") {
+        name
+        fields {
+            name
+            description
+            type {
+                name
+            }
+        }
+    }
+}
+
+query roots {
+    __schema {
+        queryType {
+            ...typeFields
+        }
+        mutationType {
+            ...typeFields
+        }
+        subscriptionType {
+            ...typeFields
+        }
+    }
+}
+
+fragment typeFields on __Type {
+    name
+    fields {
+        name
+    }
+}

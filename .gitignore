@@ -1,3 +1,5 @@
+.graphqlrc.yml
+
 # Logs
 logs
 *.log

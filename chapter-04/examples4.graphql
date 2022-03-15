@@ -1,0 +1,219 @@
+"""
+Built-in scalar types are Int, Float, String, Boolean, and ID.
+Enums are scalar types that allow a field to return a restricted set of string values.
+"""
+scalar DateTime
+
+enum PhotoCategory {
+    SELFIE
+    PORTRAIT
+    ACTION
+    LANDSCAPE
+    GRAPHIC
+}
+
+type Photo {
+    # The ID scalar type is used when a unique identifier should be returned
+    id: ID!
+    # The '!' specifies that the field is non-nullable
+    name: String!
+    url: String!
+    description: String
+    created: DateTime!
+    category: PhotoCategory!
+    # Connection between the Photo and User types
+    postedBy: User!
+    taggedUsers: [User!]!
+}
+
+type User {
+    githubLogin: ID!
+    name: String
+    avatar: String
+    # Careful with the exclamation points. This is a non-nullable list of non-nullable values.
+    postedPhotos: [Photo!]!
+    inPhotos: [Photo!]!
+}
+
+# To make the users and photos available in a query we need to define the Query root type.
+type Query {
+    totalPhotos: Int!
+    allPhotos: [Photo!]!
+    totalUsers: Int!
+    allUsers: [User!]!
+}
+
+# Adding the Query type to the schema makes them available in the GraphQL API
+schema {
+    query: Query
+}
+
+# The above allows for:
+query {
+    totalPhotos
+    allPhotos {
+        name
+        url
+    }
+}
+
+
+# Through types - define the edge as a custom type
+type User {
+    friends: [Friendship!]!
+}
+type Friendship {
+    friend_a: User!
+    friend_b: User!
+    howLong: Int!
+    whereWeMet: Location
+}
+
+
+# Lists of different types - unions and interfaces
+# 1 - Union types
+query schedule {
+    agenda {
+        ...on Workout {
+            name
+            reps
+        }
+        ...on StudyGroup {
+            name
+            subject
+            students
+        }
+    }
+}
+
+union AgendaItem = StudyGroup | Workout
+
+type StudyGroup {
+    name: String!
+    subject: String
+    students: [User!]!
+}
+
+type Workout {
+    name: String!
+    reps: Int!
+}
+
+type Query {
+    # The agenda is a list of either study groups or workouts
+    agenda: [AgendaItem!]! 
+}
+
+# 2 - Interfaces
+# An interfaces define all of the fields that must be included by any object that implements it
+query schedule {
+    agenda {
+        name
+        start
+        end
+        ...on Workout {
+            reps
+        }
+    }
+}
+
+
+scalar DateTime
+
+interface AgendaItem {
+    name: String!
+    start: DateTime!
+    end: DateTime!
+}
+
+type StudyGroup implements AgendaItem {
+    name: String!
+    start: DateTime!
+    end: DateTime!
+    participants: [User!]!
+    topic: String!
+}
+
+type Workout implements AgendaItem {
+    name: String!
+    start: DateTime!
+    end: DateTime!
+    reps: Int!
+}
+
+type Query {
+    agenda: [AgendaItem!]!
+}
+
+# Arguments
+query {
+    User(githubLogin: "sjhbremer") {
+        name
+        avatar
+    }
+}
+
+# Mutations - the verbs
+type Mutation {
+    postPhoto(
+        name: String!
+        description: String
+        category: PhotoCategory=PORTRAIT
+    ): Photo!
+}
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+# Input types
+input PostPhotoInput {
+    name: String!
+    description: String
+    category: PhotoCategory=PORTRAIT
+}
+
+type Mutation {
+    postPhoto(input: PostPhotoInput!): Photo!
+}
+
+input PhotoFilter {
+    category: PhotoCategory
+    createdBetween: DateRange
+    taggedUsers: [ID!]
+    searchText: String
+}
+
+input DateRange {
+    start: DateTime!
+    end: DateTime!
+}
+
+input DataPage {
+    first: Int = 25
+    start: Int = 0
+}
+
+input DataSort {
+    sort: SortDirection = DESCENDING
+    sortBy: SortablePhotoField = created
+}
+
+type User {
+    ...
+    postedPhotos(filter:PhotoFilter paging:DataPage sorting:DataSort): [PHOTO!]!
+    inPhotos(filter:PhotoFilter paging:DataPage sorting:DataSort): [PHOTO!]!
+}
+
+type Photo {
+    ...
+    taggedUsers(sorting:DataSort): [USER!]!
+}
+
+type Query {
+    ...
+    allUsers(paging:DataPage sorting:DataSort): [USER!]!
+    allPhotos(filter:PhotoFilter paging:DataPage sorting:DataSort): [PHOTO!]!
+}
+
